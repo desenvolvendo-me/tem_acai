@@ -13,4 +13,9 @@ RSpec.describe "customer" do
     phone = "51992345856"
     expect(Customer.create(nil, phone)).to eq "Por favor, informe seu nome."
   end
+
+  it "throw error message if customer is no phone" do
+    name = "fulano"
+    expect(Customer.create(name, nil)).to eq "Por favor, informe seu telefone."
+  end
 end
