@@ -18,4 +18,8 @@ RSpec.describe "customer" do
     name = "fulano"
     expect(Customer.create(name, nil)).to eq "Por favor, informe seu telefone."
   end
+
+  it "show all customers" do
+    expect(Customer.all).to eq({ id: 1, name: "fulano", phone: "51992345856" })
+  end
 end
