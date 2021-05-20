@@ -12,6 +12,10 @@ class Customer
   end
 
   def self.all
-    { id: 1, name: "fulano", phone: "51992345856" }
+    customers = []
+    CSV.read("data/customers.csv", headers: true).each do |row|
+      customers << { id: row["id"], name: row["name"], phone: row["phone"] }
+    end
+    customers
   end
 end
