@@ -26,13 +26,25 @@ RSpec.describe Company do
       expect(company.phone).to eq("")
     end
 
-    it "persists the data" do
+    it "creates a company" do
       companies = Company.all
-      Company.create(name: "Casa do Açaí")
+      Company.create(name: "Casa do Açaí", phone: "11-11111111")
       new_companies = Company.all
 
       expect(companies).to be_empty
       expect(new_companies.first.name).to eq("Casa do Açaí")
+      expect(new_companies.first.phone).to eq("11-11111111")
+      expect(new_companies.first.id).to be_truthy
+    end
+
+    it "creates four companies" do
+      Company.create(name: "Casa do Açaí")
+      Company.create(name: "Toca do Açaí")
+      Company.create(name: "Açaí da Esquina")
+      Company.create(name: "Tudo Açaí")
+      companies = Company.all
+
+      expect(companies.length).to eq(4)
     end
   end
 
