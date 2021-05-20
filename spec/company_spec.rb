@@ -11,8 +11,6 @@ RSpec.describe Company do
   after(:all) { restart_csv(csv_path) }
 
   context ".create" do
-
-
     it "creates a company with id, name and phone" do
       company = Company.create(name: "Casa do Açaí", phone: "11-11111111")
 
@@ -56,7 +54,7 @@ RSpec.describe Company do
     end
   end
 
-  context '#inform_open' do
+  context "#inform_open" do
     it "sets the company is_open to true" do
       company = Company.create(name: "Toca do Açaí", phone: "11-11111111")
 
@@ -69,7 +67,7 @@ RSpec.describe Company do
 
   def restart_csv(file_path)
     CSV.open(file_path, "wb") do |csv|
-      csv << %w[id name phone]
+      csv << %w[id name phone is_open]
     end
   end
 end
