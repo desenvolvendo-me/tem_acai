@@ -63,6 +63,17 @@ RSpec.describe Company do
       expect(company.is_open).to eq(true)
       expect(Company.all.first.is_open).to eq(true)
     end
+
+    it "sets the company is_open to true when there is more than one company" do
+      Company.create(name: "Casa do Açaí", phone: "11-11111111")
+      Company.create(name: "Toca do Açaí", phone: "11-11111112")
+      company = Company.create(name: "Caverna do Açaí", phone: "11-11111113")
+
+      company.inform_open
+
+      expect(company.is_open).to eq(true)
+      expect(Company.all.last.is_open).to eq(true)
+    end
   end
 
   def restart_csv(file_path)
