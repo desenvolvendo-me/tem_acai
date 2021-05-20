@@ -16,11 +16,9 @@ class Company
   def self.create(name:, phone: "")
     new_company = { id: 1, name: name, phone: phone }
 
-    companies_csv = CSV.open(DATA_PATH, "ab")
-
-    companies_csv << %w[id name phone] if File.empty?(companies_csv)
-
-    companies_csv << [new_company[:id], new_company[:name], new_company[:phone]]
+    CSV.open(DATA_PATH, "ab") do |csv|
+      csv << [new_company[:id], new_company[:name], new_company[:phone]]
+    end
 
     new_company
   end

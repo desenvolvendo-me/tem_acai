@@ -2,15 +2,14 @@
 
 RSpec.describe Company do
   context ".create" do
-    before do
-      test_data_path = "spec/support/companies-test.csv"
-      stub_const("Company::DATA_PATH", test_data_path)
+    csv_path = "spec/support/companies-test.csv"
 
-      CSV.open(test_data_path, "wb") do |csv|
-        csv << %w[id name phone]
-        csv.close
-      end
+    before do
+      stub_const("Company::DATA_PATH", csv_path)
+      restart_csv(csv_path)
     end
+
+    after(:all) { restart_csv(csv_path) }
 
     it "creates a company with id, name and phone" do
       company = Company.create(name: "Casa do Açaí", phone: "11-11111111")
@@ -32,6 +31,12 @@ RSpec.describe Company do
       new_companies = Company.all
 
       expect(new_companies.to_s).to include("Casa do Açaí")
+    end
+  end
+
+  def restart_csv(file_path)
+    CSV.open(file_path, "wb") do |csv|
+      csv << %w[id name phone]
     end
   end
 end
