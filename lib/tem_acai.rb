@@ -2,6 +2,7 @@
 
 require_relative "tem_acai/version"
 require_relative "tem_acai/company"
+require_relative "tem_acai/customer"
 
 module TemAcai
   class Error < StandardError; end
