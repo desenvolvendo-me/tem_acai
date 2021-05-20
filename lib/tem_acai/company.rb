@@ -2,6 +2,7 @@
 
 require "csv"
 class Company
+  ID_RANDOM_SET = 2000
   DATA_PATH = "data/companies.csv"
 
   attr_reader :id, :name, :phone
@@ -22,7 +23,9 @@ class Company
   end
 
   def self.create(name:, phone: "")
-    new_company = Company.new(id: 1, name: name, phone: phone)
+    id = rand(ID_RANDOM_SET)
+
+    new_company = Company.new(id: id, name: name, phone: phone)
 
     CSV.open(DATA_PATH, "ab") do |csv|
       csv << [new_company.id, new_company.name, new_company.phone]
