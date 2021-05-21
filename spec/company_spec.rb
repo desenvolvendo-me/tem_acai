@@ -76,6 +76,21 @@ RSpec.describe Company do
     end
   end
 
+  context "#address" do
+    it "returns the address from company" do
+      company = Company.create(name: "Casa do Açaí", phone: "11-11111111")
+      CompanyAddress.create(company_id: company.id.to_s, zip: "11111-111", street: "Rua do Açaí, 25", city: "São Paulo",
+                            state: "SP")
+
+      address = company.address
+
+      expect(address.street).to eq("Rua do Açaí, 25")
+      expect(address.zip).to eq("11111-111")
+      expect(address.city).to eq("São Paulo")
+      expect(address.state).to eq("SP")
+    end
+  end
+
   def restart_csv(file_path)
     CSV.open(file_path, "wb") do |csv|
       csv << %w[id name phone is_open]
