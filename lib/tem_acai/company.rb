@@ -42,6 +42,10 @@ class Company
     update_csv
   end
 
+  def address
+    CompanyAddress.from_company(id.to_s)
+  end
+
   private
 
   attr_writer :is_open
