@@ -46,6 +46,10 @@ class Company
     CompanyAddress.from_company(id.to_s)
   end
 
+  def ratings
+    Rating.from_company(id.to_s)
+  end
+
   private
 
   attr_writer :is_open
