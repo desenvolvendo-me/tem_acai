@@ -77,7 +77,16 @@ RSpec.describe Company do
   end
 
   context "#address" do
+    addresses_path = "spec/support/companies-addresses-test.csv"
+
+    after do
+      CSV.open(addresses_path, "wb") do |csv|
+        csv << %w[id company_id zip street city state]
+      end
+    end
+
     it "returns the address from company" do
+      stub_const("CompanyAddress::DATA_PATH", addresses_path)
       company = Company.create(name: "Casa do Açaí", phone: "11-11111111")
       CompanyAddress.create(company_id: company.id.to_s, zip: "11111-111", street: "Rua do Açaí, 25", city: "São Paulo",
                             state: "SP")
