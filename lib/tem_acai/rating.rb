@@ -15,6 +15,17 @@ class Rating
     @content = content
   end
 
+  def self.all
+    ratings = []
+
+    CSV.open(DATA_PATH, headers: true).each do |row|
+      ratings << Rating.new(id: row["id"], company_id: row["company_id"], customer_id: row["customer_id"],
+                            rate: row["rate"], content: row["content"])
+    end
+
+    ratings
+  end
+
   def self.create(company_id:, customer_id:, rate:, content: "")
     id = rand(ID_RANDOM_SET)
 
