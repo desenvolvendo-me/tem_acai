@@ -3,28 +3,43 @@
 require "tem_acai/customer"
 
 RSpec.describe "customer" do
+  csv_path = "spec/support/customers-test.csv"
+
+  before do
+    stub_const("Customer::DATA_PATH", csv_path)
+    restart_csv(csv_path)
+  end
+
+  after(:all) { restart_csv(csv_path) }
+
   it "create" do
-    name = "fulano"
-    phone = "51992345856"
-    expect(Customer.create(name, phone)).to eq({ id: 1, name: "fulano", phone: "51992345856" })
+    company = Customer.create("fulano", "51992345856")
+    expect(company.name).to eq("fulano")
+    expect(company.phone).to eq("51992345856")
+    expect(company.id).to be_truthy
   end
 
   it "throw error message if customer is no name" do
-    phone = "51992345856"
-    expect(Customer.create(nil, phone)).to eq "Por favor, informe seu nome."
+    expect(Customer.create(nil, "51992345856")).to eq("O nome é obrigatório.")
+    expect(Customer.create("", "51992345856")).to eq("O nome é obrigatório.")
   end
 
   it "throw error message if customer is no phone" do
-    name = "fulano"
-    expect(Customer.create(name, nil)).to eq "Por favor, informe seu telefone."
+    expect(Customer.create("fulano", nil)).to eq("O telefone é obrigatório.")
+    expect(Customer.create("fulano", "")).to eq("O telefone é obrigatório.")
   end
 
-  it "show customers" do
-    customers = [
-      { id: "1", name: "fulano", phone: "51992345856" },
-      { id: "2", name: "beltrano", phone: "112156368947" },
-      { id: "1", name: "cicrano", phone: "21996243000" }
-    ]
-    expect(Customer.all).to eq(customers)
+  it "should create 3 customers" do
+    Customer.create("ciclano", "11111111111")
+    Customer.create("beltrano", "1122222222")
+    Customer.create("joao", "3333333333")
+    company = Customer.all
+    expect(company.length).to eq(3)
+  end
+
+  def restart_csv(file_path)
+    CSV.open(file_path, "wb") do |csv|
+      csv << %w[id name phone]
+    end
   end
 end
