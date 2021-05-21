@@ -37,4 +37,8 @@ class Rating
 
     new_rating
   end
+
+  def self.from_company(company_id)
+    Rating.all.select { |rating| rating.company_id == company_id }
+  end
 end
