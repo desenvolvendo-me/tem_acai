@@ -29,9 +29,12 @@ RSpec.describe "customer" do
     expect(Customer.create("fulano", "")).to eq("O telefone é obrigatório.")
   end
 
-  it "show customers" do
-    customers = []
-    expect(Customer.all).to eq(customers)
+  it 'should create 3 customers' do
+    Customer.create("ciclano", '11111111111')
+    Customer.create("beltrano", '1122222222')
+    Customer.create("joao", '3333333333')
+    company = Customer.all
+    expect(company.length).to eq(3)
   end
 
   def restart_csv(file_path)
