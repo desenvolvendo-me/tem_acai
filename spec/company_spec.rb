@@ -100,6 +100,31 @@ RSpec.describe Company do
     end
   end
 
+  context "#ratings" do
+    ratings_path = "spec/support/ratings-test.csv"
+
+    after do
+      CSV.open(ratings_path, "wb") do |csv|
+        csv << %w[id company_id customer_id rate content]
+      end
+    end
+
+    it "returns all company ratings" do
+      stub_const("Rating::DATA_PATH", ratings_path)
+      company = Company.create(name: "Casa do Açaí", phone: "11-11111111")
+      Rating.create(company_id: company.id.to_s, customer_id: "21", rate: "8", content: "Muito bom!")
+      Rating.create(company_id: company.id.to_s, customer_id: "26", rate: "1", content: "Péssimo")
+      Rating.create(company_id: "84", customer_id: "10", rate: "5", content: "Até que dá pro gasto")
+
+      ratings = company.ratings
+
+      expect(ratings.size).to eq(2)
+      expect(ratings.to_s).to include("Péssimo")
+      expect(ratings.to_s).to include("Muito bom!")
+      expect(ratings.to_s).to_not include("Até que dá pro gasto")
+    end
+  end
+
   def restart_csv(file_path)
     CSV.open(file_path, "wb") do |csv|
       csv << %w[id name phone is_open]
