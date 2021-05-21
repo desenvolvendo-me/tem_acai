@@ -33,6 +33,21 @@ RSpec.describe Rating do
     end
   end
 
+  context ".from_company" do
+    it "retrieves all company ratings" do
+      Rating.create(company_id: "123", customer_id: "21", rate: "8", content: "Muito bom!")
+      Rating.create(company_id: "123", customer_id: "26", rate: "1", content: "Péssimo")
+      Rating.create(company_id: "84", customer_id: "10", rate: "5", content: "Até que dá pro gasto")
+
+      ratings = Rating.from_company("123")
+
+      expect(ratings.size).to eq(2)
+      expect(ratings.to_s).to include("Péssimo")
+      expect(ratings.to_s).to include("Muito bom!")
+      expect(ratings.to_s).to_not include("Até que dá pro gasto")
+    end
+  end
+
   def restart_csv(file_path)
     CSV.open(file_path, "wb") do |csv|
       csv << %w[id company_id customer_id rate content]
