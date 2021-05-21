@@ -5,6 +5,7 @@ require_relative "tem_acai/company"
 require_relative "tem_acai/company_address"
 require_relative "tem_acai/customer"
 require_relative "tem_acai/rating"
+require_relative "tem_acai/customer_address"
 
 module TemAcai
   class Error < StandardError; end
