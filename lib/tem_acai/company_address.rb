@@ -16,6 +16,16 @@ class CompanyAddress
     @state = state
   end
 
+  def self.all
+    addresses = []
+
+    CSV.read(DATA_PATH, headers: true).each do |row|
+      addresses << CompanyAddress.new(id: row["id"], company_id: row["company_id"], zip: row["zip"],
+                                      street: row["street"], city: row["city"], state: row["state"])
+    end
+    addresses
+  end
+
   def self.create(company_id:, zip:, street:, city:, state:)
     id = rand(ID_RANDOM_SET)
 
@@ -28,5 +38,9 @@ class CompanyAddress
     end
 
     new_address
+  end
+
+  def self.from_company(company_id)
+    CompanyAddress.all.find { |address| address.company_id == company_id }
   end
 end
