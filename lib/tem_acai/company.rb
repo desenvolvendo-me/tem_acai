@@ -5,19 +5,21 @@ class Company
   ID_RANDOM_SET = 2000
   DATA_PATH = "data/companies.csv"
 
-  attr_reader :id, :name, :phone
+  attr_reader :id, :name, :phone, :is_open
+  alias is_open? is_open
 
-  def initialize(id:, name:, phone: "")
+  def initialize(id:, name:, phone: "", is_open: false)
     @id = id
     @name = name
     @phone = phone
+    @is_open = is_open == "" || !is_open ? false : true
   end
 
   def self.all
     companies = []
 
     CSV.read(DATA_PATH, headers: true).each do |row|
-      companies << Company.new(id: row["id"], name: row["name"], phone: row["phone"])
+      companies << Company.new(id: row["id"], name: row["name"], phone: row["phone"], is_open: row["is_open"])
     end
     companies
   end
@@ -32,5 +34,30 @@ class Company
     end
 
     new_company
+  end
+
+  def inform_open
+    self.is_open = true
+
+    update_csv
+  end
+
+  private
+
+  attr_writer :is_open
+
+  def update_csv
+    companies = Company.all
+
+    CSV.open(DATA_PATH, "wb") do |csv|
+      csv << %w[id name phone is_open]
+      companies.each do |company|
+        csv << if company.id == id
+                 [id, name, phone, is_open]
+               else
+                 [company.id, company.name, company.phone, company.is_open]
+               end
+      end
+    end
   end
 end
