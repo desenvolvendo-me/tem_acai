@@ -1,6 +1,15 @@
 AllCops:
   TargetRubyVersion: 2.6
 
+Metrics/BlockLength:
+  IgnoredMethods: ['describe', 'context', 'it']
+
+Metrics/MethodLength:
+  Max: 15
+
+Style/Documentation:
+  Enabled: false
+
 Style/StringLiterals:
   Enabled: true
   EnforcedStyle: double_quotes
