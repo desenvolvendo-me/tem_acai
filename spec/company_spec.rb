@@ -76,6 +76,30 @@ RSpec.describe Company do
     end
   end
 
+  context "#inform_closed" do
+    it "sets the company is_open to false" do
+      company = Company.create(name: "Toca do Açaí", phone: "11-11111111")
+      company.inform_open
+
+      company.inform_closed
+
+      expect(company.is_open).to eq(false)
+      expect(Company.all.first.is_open).to eq(false)
+    end
+
+    it "sets the company is_open to false when there is more than one company" do
+      Company.create(name: "Casa do Açaí", phone: "11-11111111")
+      Company.create(name: "Toca do Açaí", phone: "11-11111112")
+      company = Company.create(name: "Caverna do Açaí", phone: "11-11111113")
+      company.inform_open
+
+      company.inform_closed
+
+      expect(company.is_open).to eq(false)
+      expect(Company.all.last.is_open).to eq(false)
+    end
+  end
+
   context "#address" do
     addresses_path = "spec/support/companies-addresses-test.csv"
 
