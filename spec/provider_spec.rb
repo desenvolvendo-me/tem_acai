@@ -13,13 +13,13 @@ RSpec.describe Provider do
   after(:all) { restart_csv(csv_path) }
 
   it ".create name" do
-    provider = Provider.create( "Fornecedor 1")
+    provider = Provider.create("Fornecedor 1")
     expect(provider.name).to eq("Fornecedor 1")
   end
 
   it ".validate name is required" do
-    expect(Provider.create( nil)).to eq("O nome é obrigatório.")
-    expect(Provider.create( "")).to eq("O nome é obrigatório.")
+    expect(Provider.create(nil)).to eq("O nome é obrigatório.")
+    expect(Provider.create("")).to eq("O nome é obrigatório.")
   end
 
   def restart_csv(file_path)
