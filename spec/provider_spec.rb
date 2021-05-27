@@ -18,8 +18,8 @@ RSpec.describe Provider do
   end
 
   it ".create phone" do
-    provider = Provider.create("Fornecedor 2")
-    expect(provider.phone).to be_nil
+    provider = Provider.create("Novo Fornecedor", "51-911111111")
+    expect(provider.phone).to eq("51-911111111")
   end
 
   it ".create new provider with phone is nil" do
