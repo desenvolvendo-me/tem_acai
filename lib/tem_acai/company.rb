@@ -9,10 +9,10 @@ class Company
   alias is_open? is_open
 
   def initialize(id:, name:, phone: "", is_open: false)
-    @id = id
+    @id = id.to_i
     @name = name
     @phone = phone
-    @is_open = is_open == "" || !is_open ? false : true
+    @is_open = ["true", true].include?(is_open)
   end
 
   def self.all
@@ -42,6 +42,12 @@ class Company
     update_csv
   end
 
+  def inform_closed
+    self.is_open = false
+
+    update_csv
+  end
+
   def address
     CompanyAddress.from_company(id.to_s)
   end
@@ -60,7 +66,7 @@ class Company
     CSV.open(DATA_PATH, "wb") do |csv|
       csv << %w[id name phone is_open]
       companies.each do |company|
-        csv << if company.id == id
+        csv << if company.id.to_i == id
                  [id, name, phone, is_open]
                else
                  [company.id, company.name, company.phone, company.is_open]
