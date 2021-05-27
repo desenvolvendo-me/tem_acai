@@ -29,7 +29,7 @@ RSpec.describe Provider do
 
   def restart_csv(file_path)
     CSV.open(file_path, "wb") do |csv|
-      csv << %w[id name]
+      csv << %w[id name phone]
     end
   end
 end
