@@ -18,6 +18,8 @@ class Provider
 
     new_provider = Provider.new(id: id, name: name)
 
+    return "O nome é obrigatório." if new_provider.name.nil? || new_provider.name == ""
+
     CSV.open(DATA_PATH, "ab") do |csv|
       csv << [new_provider.id, new_provider.name]
     end
