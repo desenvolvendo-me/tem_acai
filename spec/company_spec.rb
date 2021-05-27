@@ -54,6 +54,33 @@ RSpec.describe Company do
     end
   end
 
+  context ".all" do
+    it "lists one Company" do
+      Company.create(name: "Casa do Açaí", phone: "11-11111111")
+
+      companies = Company.all
+
+      expect(companies.size).to eq 1
+      expect(companies.first.name).to eq("Casa do Açaí")
+      expect(companies.first.phone).to eq("11-11111111")
+      expect(companies.first.is_open?).to eq(false)
+      expect(companies.first.id).to be_truthy
+    end
+
+    it "lists three Companies" do
+      Company.create(name: "Casa do Açaí")
+      Company.create(name: "Toca do Açaí")
+      Company.create(name: "Açaí da Esquina")
+
+      companies = Company.all
+
+      expect(companies.length).to eq(3)
+      expect(companies.to_s).to include("Casa do Açaí")
+      expect(companies.to_s).to include("Toca do Açaí")
+      expect(companies.to_s).to include("Açaí da Esquina")
+    end
+  end
+
   context "#inform_open" do
     it "sets the company is_open to true" do
       company = Company.create(name: "Toca do Açaí", phone: "11-11111111")
