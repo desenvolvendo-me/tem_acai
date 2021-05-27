@@ -22,6 +22,11 @@ RSpec.describe Provider do
     expect(provider.phone).to be_nil
   end
 
+  it ".create new provider with phone is nil" do
+    provider = Provider.create("Fornecedor 2", nil)
+    expect(provider.phone).to be_nil
+  end
+
   it ".validate name is required" do
     expect(Provider.create(nil, nil)).to eq("O nome é obrigatório.")
     expect(Provider.create("", nil)).to eq("O nome é obrigatório.")
