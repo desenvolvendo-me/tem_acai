@@ -32,6 +32,18 @@ RSpec.describe Company do
       expect(company.is_open?).to eq false
     end
 
+    it "with acai_price" do
+      company = Company.create(name: "Casa do Açaí", acai_price: "12,50")
+
+      expect(company.acai_price).to eq("12,50")
+    end
+
+    it "acai_price is not required" do
+      company = Company.create(name: "Casa do Açaí")
+
+      expect(company.acai_price).to eq("")
+    end
+
     it "creates a company" do
       companies = Company.all
       Company.create(name: "Casa do Açaí", phone: "11-11111111")
@@ -178,7 +190,7 @@ RSpec.describe Company do
 
   def restart_csv(file_path)
     CSV.open(file_path, "wb") do |csv|
-      csv << %w[id name phone is_open]
+      csv << %w[id name phone is_open acai_price]
     end
   end
 end
