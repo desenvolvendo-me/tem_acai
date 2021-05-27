@@ -5,14 +5,15 @@ class Company
   ID_RANDOM_SET = 2000
   DATA_PATH = "data/companies.csv"
 
-  attr_reader :id, :name, :phone, :is_open
+  attr_reader :id, :name, :phone, :is_open, :acai_price
   alias is_open? is_open
 
-  def initialize(id:, name:, phone: "", is_open: false)
+  def initialize(id:, name:, phone: "", is_open: false, acai_price: "")
     @id = id.to_i
     @name = name
     @phone = phone
     @is_open = ["true", true].include?(is_open)
+    @acai_price = acai_price
   end
 
   def self.all
@@ -24,13 +25,13 @@ class Company
     companies
   end
 
-  def self.create(name:, phone: "")
+  def self.create(name:, phone: "", acai_price: "")
     id = rand(ID_RANDOM_SET)
 
-    new_company = Company.new(id: id, name: name, phone: phone)
+    new_company = Company.new(id: id, name: name, phone: phone, acai_price: acai_price)
 
     CSV.open(DATA_PATH, "ab") do |csv|
-      csv << [new_company.id, new_company.name, new_company.phone]
+      csv << [new_company.id, new_company.name, new_company.phone, new_company.acai_price]
     end
 
     new_company
