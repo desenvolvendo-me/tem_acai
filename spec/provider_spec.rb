@@ -17,6 +17,11 @@ RSpec.describe Provider do
     expect(provider.name).to eq("Fornecedor 1")
   end
 
+  it ".validate name is required" do
+    expect(Provider.create( nil)).to eq("O nome é obrigatório.")
+    expect(Provider.create( "")).to eq("O nome é obrigatório.")
+  end
+
   def restart_csv(file_path)
     CSV.open(file_path, "ab") do |csv|
       csv << %w[id name]
