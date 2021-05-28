@@ -38,6 +38,10 @@ class Company
     new_company
   end
 
+  def self.sort_by_price
+    Company.all.sort_by { |company| company.acai_price&.to_f }
+  end
+
   def inform_open
     self.is_open = true
 
