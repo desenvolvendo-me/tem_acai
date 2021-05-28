@@ -1,6 +1,9 @@
 AllCops:
   TargetRubyVersion: 2.6
 
+Metrics/AbcSize:
+  Enabled: false
+
 Metrics/BlockLength:
   IgnoredMethods: ['describe', 'context', 'it']
 
