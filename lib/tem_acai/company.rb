@@ -20,7 +20,8 @@ class Company
     companies = []
 
     CSV.read(DATA_PATH, headers: true).each do |row|
-      companies << Company.new(id: row["id"], name: row["name"], phone: row["phone"], is_open: row["is_open"])
+      companies << Company.new(id: row["id"], name: row["name"], phone: row["phone"], is_open: row["is_open"],
+                               acai_price: row["acai_price"])
     end
     companies
   end
@@ -31,7 +32,7 @@ class Company
     new_company = Company.new(id: id, name: name, phone: phone, acai_price: acai_price)
 
     CSV.open(DATA_PATH, "ab") do |csv|
-      csv << [new_company.id, new_company.name, new_company.phone, new_company.acai_price]
+      csv << [new_company.id, new_company.name, new_company.phone, new_company.is_open, new_company.acai_price]
     end
 
     new_company
@@ -65,12 +66,12 @@ class Company
     companies = Company.all
 
     CSV.open(DATA_PATH, "wb") do |csv|
-      csv << %w[id name phone is_open]
+      csv << %w[id name phone is_open acai_price]
       companies.each do |company|
         csv << if company.id.to_i == id
-                 [id, name, phone, is_open]
+                 [id, name, phone, is_open, acai_price]
                else
-                 [company.id, company.name, company.phone, company.is_open]
+                 [company.id, company.name, company.phone, company.is_open, company.acai_price]
                end
       end
     end
