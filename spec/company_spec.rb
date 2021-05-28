@@ -94,6 +94,22 @@ RSpec.describe Company do
     end
   end
 
+  context ".sort_by_price" do
+    it "returns companies ordered by acai_price" do
+      Company.create(name: "Casa do Açaí", phone: "11-11111111", acai_price: "11,00")
+      Company.create(name: "Toca do Açaí", phone: "11-11111111", acai_price: "10,00")
+      Company.create(name: "Açaí do Açaí", phone: "11-11111111", acai_price: "12,00")
+      Company.create(name: "Esquina do Açaí", phone: "11-11111111", acai_price: "8,00")
+
+      companies = Company.sort_by_price()
+
+      expect(companies[0].name).to eq "Esquina do Açaí"
+      expect(companies[1].name).to eq "Toca do Açaí"
+      expect(companies[2].name).to eq "Casa do Açaí"
+      expect(companies[3].name).to eq "Açaí do Açaí"
+    end
+  end
+
   context "#inform_open" do
     it "sets the company is_open to true" do
       company = Company.create(name: "Toca do Açaí", phone: "11-11111111")
