@@ -33,9 +33,9 @@ RSpec.describe Company do
     end
 
     it "with acai_price" do
-      company = Company.create(name: "Casa do Açaí", acai_price: "12,50")
+      company = Company.create(name: "Casa do Açaí", acai_price: "12.50")
 
-      expect(company.acai_price).to eq("12,50")
+      expect(company.acai_price).to eq("12.50")
     end
 
     it "acai_price is not required" do
@@ -68,7 +68,7 @@ RSpec.describe Company do
 
   context ".all" do
     it "lists one Company with id, name, phone, is_open, id and acai_price" do
-      Company.create(name: "Casa do Açaí", phone: "11-11111111", acai_price: "12,00")
+      Company.create(name: "Casa do Açaí", phone: "11-11111111", acai_price: "12.00")
 
       companies = Company.all
 
@@ -76,7 +76,7 @@ RSpec.describe Company do
       expect(companies.first&.name).to eq("Casa do Açaí")
       expect(companies.first&.phone).to eq("11-11111111")
       expect(companies.first&.is_open?).to eq(false)
-      expect(companies.first&.acai_price).to eq("12,00")
+      expect(companies.first&.acai_price).to eq("12.00")
       expect(companies.first&.id).to be_truthy
     end
 
@@ -96,10 +96,10 @@ RSpec.describe Company do
 
   context ".sort_by_price" do
     it "returns companies ordered by acai_price" do
-      Company.create(name: "Casa do Açaí", phone: "11-11111111", acai_price: "11,00")
-      Company.create(name: "Toca do Açaí", phone: "11-11111111", acai_price: "10,00")
-      Company.create(name: "Açaí do Açaí", phone: "11-11111111", acai_price: "12,00")
-      Company.create(name: "Esquina do Açaí", phone: "11-11111111", acai_price: "8,00")
+      Company.create(name: "Casa do Açaí", phone: "11-11111111", acai_price: "11.00")
+      Company.create(name: "Toca do Açaí", phone: "11-11111111", acai_price: "10.00")
+      Company.create(name: "Açaí do Açaí", phone: "11-11111111", acai_price: "12.00")
+      Company.create(name: "Esquina do Açaí", phone: "11-11111111", acai_price: "8.00")
 
       companies = Company.sort_by_price
 
