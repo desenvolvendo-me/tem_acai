@@ -50,9 +50,9 @@ RSpec.describe Company do
       new_companies = Company.all
 
       expect(companies).to be_empty
-      expect(new_companies.first.name).to eq("Casa do Açaí")
-      expect(new_companies.first.phone).to eq("11-11111111")
-      expect(new_companies.first.id).to be_truthy
+      expect(new_companies.first&.name).to eq("Casa do Açaí")
+      expect(new_companies.first&.phone).to eq("11-11111111")
+      expect(new_companies.first&.id).to be_truthy
     end
 
     it "creates four companies" do
@@ -73,11 +73,11 @@ RSpec.describe Company do
       companies = Company.all
 
       expect(companies.size).to eq 1
-      expect(companies.first.name).to eq("Casa do Açaí")
-      expect(companies.first.phone).to eq("11-11111111")
-      expect(companies.first.is_open?).to eq(false)
-      expect(companies.first.acai_price).to eq("12,00")
-      expect(companies.first.id).to be_truthy
+      expect(companies.first&.name).to eq("Casa do Açaí")
+      expect(companies.first&.phone).to eq("11-11111111")
+      expect(companies.first&.is_open?).to eq(false)
+      expect(companies.first&.acai_price).to eq("12,00")
+      expect(companies.first&.id).to be_truthy
     end
 
     it "lists three Companies" do
@@ -101,7 +101,7 @@ RSpec.describe Company do
       Company.create(name: "Açaí do Açaí", phone: "11-11111111", acai_price: "12,00")
       Company.create(name: "Esquina do Açaí", phone: "11-11111111", acai_price: "8,00")
 
-      companies = Company.sort_by_price()
+      companies = Company.sort_by_price
 
       expect(companies[0].name).to eq "Esquina do Açaí"
       expect(companies[1].name).to eq "Toca do Açaí"
@@ -117,7 +117,7 @@ RSpec.describe Company do
       company.inform_open
 
       expect(company.is_open).to eq(true)
-      expect(Company.all.first.is_open).to eq(true)
+      expect(Company.all.first&.is_open).to eq(true)
     end
 
     it "sets the company is_open to true when there is more than one company" do
@@ -128,7 +128,7 @@ RSpec.describe Company do
       company.inform_open
 
       expect(company.is_open).to eq(true)
-      expect(Company.all.last.is_open).to eq(true)
+      expect(Company.all.last&.is_open).to eq(true)
     end
   end
 
@@ -140,7 +140,7 @@ RSpec.describe Company do
       company.inform_closed
 
       expect(company.is_open).to eq(false)
-      expect(Company.all.first.is_open).to eq(false)
+      expect(Company.all.first&.is_open).to eq(false)
     end
 
     it "sets the company is_open to false when there is more than one company" do
@@ -152,7 +152,7 @@ RSpec.describe Company do
       company.inform_closed
 
       expect(company.is_open).to eq(false)
-      expect(Company.all.last.is_open).to eq(false)
+      expect(Company.all.last&.is_open).to eq(false)
     end
   end
 
@@ -173,10 +173,10 @@ RSpec.describe Company do
 
       address = company.address
 
-      expect(address.street).to eq("Rua do Açaí, 25")
-      expect(address.zip).to eq("11111-111")
-      expect(address.city).to eq("São Paulo")
-      expect(address.state).to eq("SP")
+      expect(address&.street).to eq("Rua do Açaí, 25")
+      expect(address&.zip).to eq("11111-111")
+      expect(address&.city).to eq("São Paulo")
+      expect(address&.state).to eq("SP")
     end
   end
 
