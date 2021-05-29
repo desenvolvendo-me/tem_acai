@@ -11,6 +11,7 @@ class Provider
   def initialize(id:, name:, phone: nil)
     @id = id
     @name = name
+    @name = name
     @phone = phone
   end
 
