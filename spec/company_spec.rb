@@ -33,9 +33,9 @@ RSpec.describe Company do
     end
 
     it "with acai_price" do
-      company = Company.create(name: "Casa do Açaí", acai_price: "12,50")
+      company = Company.create(name: "Casa do Açaí", acai_price: "12.50")
 
-      expect(company.acai_price).to eq("12,50")
+      expect(company.acai_price).to eq("12.50")
     end
 
     it "acai_price is not required" do
@@ -50,9 +50,9 @@ RSpec.describe Company do
       new_companies = Company.all
 
       expect(companies).to be_empty
-      expect(new_companies.first.name).to eq("Casa do Açaí")
-      expect(new_companies.first.phone).to eq("11-11111111")
-      expect(new_companies.first.id).to be_truthy
+      expect(new_companies.first&.name).to eq("Casa do Açaí")
+      expect(new_companies.first&.phone).to eq("11-11111111")
+      expect(new_companies.first&.id).to be_truthy
     end
 
     it "creates four companies" do
@@ -68,16 +68,16 @@ RSpec.describe Company do
 
   context ".all" do
     it "lists one Company with id, name, phone, is_open, id and acai_price" do
-      Company.create(name: "Casa do Açaí", phone: "11-11111111", acai_price: "12,00")
+      Company.create(name: "Casa do Açaí", phone: "11-11111111", acai_price: "12.00")
 
       companies = Company.all
 
       expect(companies.size).to eq 1
-      expect(companies.first.name).to eq("Casa do Açaí")
-      expect(companies.first.phone).to eq("11-11111111")
-      expect(companies.first.is_open?).to eq(false)
-      expect(companies.first.acai_price).to eq("12,00")
-      expect(companies.first.id).to be_truthy
+      expect(companies.first&.name).to eq("Casa do Açaí")
+      expect(companies.first&.phone).to eq("11-11111111")
+      expect(companies.first&.is_open?).to eq(false)
+      expect(companies.first&.acai_price).to eq("12.00")
+      expect(companies.first&.id).to be_truthy
     end
 
     it "lists three Companies" do
@@ -94,6 +94,22 @@ RSpec.describe Company do
     end
   end
 
+  context ".sort_by_price" do
+    it "returns companies ordered by acai_price" do
+      Company.create(name: "Casa do Açaí", phone: "11-11111111", acai_price: "11.00")
+      Company.create(name: "Toca do Açaí", phone: "11-11111111", acai_price: "10.00")
+      Company.create(name: "Açaí do Açaí", phone: "11-11111111", acai_price: "12.00")
+      Company.create(name: "Esquina do Açaí", phone: "11-11111111", acai_price: "8.00")
+
+      companies = Company.sort_by_price
+
+      expect(companies[0].name).to eq "Esquina do Açaí"
+      expect(companies[1].name).to eq "Toca do Açaí"
+      expect(companies[2].name).to eq "Casa do Açaí"
+      expect(companies[3].name).to eq "Açaí do Açaí"
+    end
+  end
+
   context "#inform_open" do
     it "sets the company is_open to true" do
       company = Company.create(name: "Toca do Açaí", phone: "11-11111111")
@@ -101,7 +117,7 @@ RSpec.describe Company do
       company.inform_open
 
       expect(company.is_open).to eq(true)
-      expect(Company.all.first.is_open).to eq(true)
+      expect(Company.all.first&.is_open).to eq(true)
     end
 
     it "sets the company is_open to true when there is more than one company" do
@@ -112,7 +128,7 @@ RSpec.describe Company do
       company.inform_open
 
       expect(company.is_open).to eq(true)
-      expect(Company.all.last.is_open).to eq(true)
+      expect(Company.all.last&.is_open).to eq(true)
     end
   end
 
@@ -124,7 +140,7 @@ RSpec.describe Company do
       company.inform_closed
 
       expect(company.is_open).to eq(false)
-      expect(Company.all.first.is_open).to eq(false)
+      expect(Company.all.first&.is_open).to eq(false)
     end
 
     it "sets the company is_open to false when there is more than one company" do
@@ -136,7 +152,7 @@ RSpec.describe Company do
       company.inform_closed
 
       expect(company.is_open).to eq(false)
-      expect(Company.all.last.is_open).to eq(false)
+      expect(Company.all.last&.is_open).to eq(false)
     end
   end
 
@@ -157,10 +173,10 @@ RSpec.describe Company do
 
       address = company.address
 
-      expect(address.street).to eq("Rua do Açaí, 25")
-      expect(address.zip).to eq("11111-111")
-      expect(address.city).to eq("São Paulo")
-      expect(address.state).to eq("SP")
+      expect(address&.street).to eq("Rua do Açaí, 25")
+      expect(address&.zip).to eq("11111-111")
+      expect(address&.city).to eq("São Paulo")
+      expect(address&.state).to eq("SP")
     end
   end
 
