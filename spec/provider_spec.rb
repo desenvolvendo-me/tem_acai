@@ -30,6 +30,7 @@ RSpec.describe Provider do
   it ".validate name is required" do
     expect(Provider.create(nil, nil)).to eq("O nome é obrigatório.")
     expect(Provider.create("", nil)).to eq("O nome é obrigatório.")
+    expect(Provider.create("", nil)).to eq("O nome é obrigatório.")
   end
 
   def restart_csv(file_path)
