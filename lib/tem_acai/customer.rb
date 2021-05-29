@@ -21,6 +21,7 @@ class Customer
     customer = Customer.new(id: id, name: name, phone: phone)
     return "O nome é obrigatório." if customer.name.nil? || customer.name == ""
     return "O telefone é obrigatório." if customer.phone.nil? || customer.phone == ""
+    return "O telefone é obrigatório." if customer.phone.nil? || customer.phone == ""
 
     CSV.open(DATA_PATH, "ab") do |csv|
       csv << [customer.id, customer.name, customer.phone]
