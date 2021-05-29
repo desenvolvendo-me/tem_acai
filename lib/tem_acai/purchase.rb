@@ -11,6 +11,7 @@ class Purchase
     @id = id
     @product_id = product_id
     @amount = amount
+    @amount = amount
     @price = price
   end
 
