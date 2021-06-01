@@ -261,6 +261,14 @@ RSpec.describe Company do
     end
   end
 
+  context "not create" do
+    it "endereço obrigatório" do
+      company =  Company.create(name: "Casa do Açaí", phone: "11-11111111")
+
+      expect(company).to eq("O endereço deve ser obrigatório")
+    end
+  end
+
   def restart_csv(file_path)
     CSV.open(file_path, "wb") do |csv|
       csv << %w[id name phone is_open acai_price]
