@@ -76,7 +76,7 @@ RSpec.describe Company do
 
     it "company" do
       companies = Company.all
-      Company.create(name: "Casa do Açaí", phone: "11-11111111")
+      Company.create(name: "Casa do Açaí", phone: "11-11111111", address: "Somehwere")
       new_companies = Company.all
 
       expect(companies).to be_empty
@@ -223,7 +223,7 @@ RSpec.describe Company do
 
     it "company" do
       stub_const("CompanyAddress::DATA_PATH", addresses_path)
-      company = Company.create(name: "Casa do Açaí", phone: "11-11111111")
+      company = Company.create(name: "Casa do Açaí", phone: "11-11111111", address: "Somehwere")
       CompanyAddress.create(company_id: company.id.to_s, zip: "11111-111", street: "Rua do Açaí, 25", city: "São Paulo",
                             state: "SP")
 
@@ -247,7 +247,7 @@ RSpec.describe Company do
 
     it "all companies" do
       stub_const("Rating::DATA_PATH", ratings_path)
-      company = Company.create(name: "Casa do Açaí", phone: "11-11111111")
+      company = Company.create(name: "Casa do Açaí", phone: "11-11111111", address: "Somehwere")
       Rating.create(company_id: company.id.to_s, customer_id: "21", rate: "8", content: "Muito bom!")
       Rating.create(company_id: company.id.to_s, customer_id: "26", rate: "1", content: "Péssimo")
       Rating.create(company_id: "84", customer_id: "10", rate: "5", content: "Até que dá pro gasto")
