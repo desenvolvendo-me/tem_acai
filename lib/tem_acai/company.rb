@@ -41,7 +41,10 @@ class Company
     companies
   end
 
-  def self.create(name:, phone: "", acai_price: "")
+  def self.create(name:, phone: "", acai_price: "", address: nil)
+    @address = address
+    return "O endereço deve ser obrigatório" if @address.nil?
+
     id = rand(ID_RANDOM_SET)
 
     new_company = Company.new(id: id, name: name, phone: phone, acai_price: acai_price)
@@ -78,10 +81,6 @@ class Company
     self.is_open = false
 
     update_csv
-  end
-
-  def address
-    CompanyAddress.from_company(id.to_s)
   end
 
   def ratings
