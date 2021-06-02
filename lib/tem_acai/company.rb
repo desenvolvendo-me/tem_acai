@@ -31,6 +31,10 @@ class Company
     "Este estabelecimento faz reserva."
   end
 
+  def addresses
+    CompanyAddress.from_company(id.to_s)
+  end
+
   def self.all
     companies = []
 
