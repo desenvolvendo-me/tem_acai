@@ -37,6 +37,32 @@ RSpec.describe CompanyAddress do
     end
   end
 
+  context "when attributes not valid" do
+    it "should return message if zip is empty" do
+      company_adrees = CompanyAddress.create(company_id: "123", zip: "", street: "Rua do Açaí, 25", city: "São Paulo",
+                                             state: "SP")
+      expect(company_adrees).to eq("O cep é obrigatório")
+    end
+
+    it "should return message if state is empty " do
+      company_adrees = CompanyAddress.create(company_id: "123", zip: "1111-1111", street: "Rua do Açaí, 25",
+                                             city: "São Paulo", state: "")
+      expect(company_adrees).to eq("O estado é obrigatório")
+    end
+
+    it "should return message if city is empty" do
+      company_adrees = CompanyAddress.create(company_id: "123", zip: "1111-1111", street: "Rua do Açaí, 25", city: "",
+                                             state: "SP")
+      expect(company_adrees).to eq("A cidade é obrigatória")
+    end
+
+    it "should return message if street is empty" do
+      company_adrees = CompanyAddress.create(company_id: "123", zip: "1111-1111", street: "", city: "São Paulo",
+                                             state: "SP")
+      expect(company_adrees).to eq("A rua é obrigatória")
+    end
+  end
+
   def restart_csv(file_path)
     CSV.open(file_path, "wb") do |csv|
       csv << %w[id company_id zip street city state]
