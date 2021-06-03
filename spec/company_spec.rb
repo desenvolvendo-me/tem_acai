@@ -26,6 +26,20 @@ RSpec.describe Company do
       expect(company.phone).to eq("")
     end
 
+    it 'default not delivery' do
+      company = Company.create(name: "Casa do Açaí")
+
+      expect(company.delivery?).to eq("Este estabelecimento não faz entrega.")
+    end
+
+    it 'option delivery' do
+      company = Company.create(name: "Casa do Açaí")
+
+      company.delivery=(true)
+
+      expect(company.delivery?).to eq("Este estabelecimento faz entrega.")
+    end
+
     it "is_open is false by default" do
       company = Company.create(name: "Casa do Açaí")
 
