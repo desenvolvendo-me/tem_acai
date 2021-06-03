@@ -26,16 +26,16 @@ RSpec.describe Company do
       expect(company.phone).to eq("")
     end
 
-    it 'default not delivery' do
+    it "default not delivery" do
       company = Company.create(name: "Casa do Açaí")
 
       expect(company.delivery?).to eq("Este estabelecimento não faz entrega.")
     end
 
-    it 'optional delivery' do
+    it "optional delivery" do
       company = Company.create(name: "Casa do Açaí")
 
-      company.delivery=(true)
+      company.delivery = (true)
 
       expect(company.delivery?).to eq("Este estabelecimento faz entrega.")
     end
