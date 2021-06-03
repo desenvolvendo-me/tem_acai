@@ -124,6 +124,24 @@ RSpec.describe Company do
     end
   end
 
+  context ".sort_by_open" do
+    it "returns companies ordered by open" do
+      Company.create(name: "Casa do Açaí")
+      company_second = Company.create(name: "Toca do Açaí")
+      Company.create(name: "Açaí do Açaí")
+      company_fourthy = Company.create(name: "Esquina do Açaí")
+
+      company_second.inform_open
+      company_fourthy.inform_open
+
+      companies = Company.sort_by_open
+
+      expect(companies[0].name).to eq("Esquina do Açaí")
+      expect(companies[1].name).to eq("Toca do Açaí")
+      expect(companies.size).to eq(2)
+    end
+  end
+
   context "#inform_open" do
     it "true" do
       company = Company.create(name: "Toca do Açaí", phone: "11-11111111")
