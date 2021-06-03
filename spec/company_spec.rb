@@ -10,8 +10,8 @@ RSpec.describe Company do
 
   after(:all) { restart_csv(csv_path) }
 
-  context ".create" do
-    it "creates a company with id, name and phone" do
+  context "create" do
+    it "id, name and phone" do
       company = Company.create(name: "Casa do Açaí", phone: "11-11111111")
 
       expect(company.name).to eq("Casa do Açaí")
@@ -19,32 +19,46 @@ RSpec.describe Company do
       expect(company.id).to be_truthy
     end
 
-    it "without a phone" do
+    it "without phone" do
       company = Company.create(name: "Casa do Açaí")
 
       expect(company.name).to eq("Casa do Açaí")
       expect(company.phone).to eq("")
     end
 
-    it "is_open is false by default" do
+    it "default not delivery" do
+      company = Company.create(name: "Casa do Açaí")
+
+      expect(company.delivery?).to eq("Este estabelecimento não faz entrega.")
+    end
+
+    it "optional delivery" do
+      company = Company.create(name: "Casa do Açaí")
+
+      company.delivery = (true)
+
+      expect(company.delivery?).to eq("Este estabelecimento faz entrega.")
+    end
+
+    it "is_open false by default" do
       company = Company.create(name: "Casa do Açaí")
 
       expect(company.is_open?).to eq false
     end
 
-    it "with acai_price" do
+    it "acai_price" do
       company = Company.create(name: "Casa do Açaí", acai_price: "12.50")
 
       expect(company.acai_price).to eq("12.50")
     end
 
-    it "acai_price is not required" do
+    it "acai_price not required" do
       company = Company.create(name: "Casa do Açaí")
 
       expect(company.acai_price).to eq("")
     end
 
-    it "creates a company" do
+    it "company" do
       companies = Company.all
       Company.create(name: "Casa do Açaí", phone: "11-11111111")
       new_companies = Company.all
@@ -55,7 +69,7 @@ RSpec.describe Company do
       expect(new_companies.first&.id).to be_truthy
     end
 
-    it "creates four companies" do
+    it "four companies" do
       Company.create(name: "Casa do Açaí")
       Company.create(name: "Toca do Açaí")
       Company.create(name: "Açaí da Esquina")
@@ -66,8 +80,8 @@ RSpec.describe Company do
     end
   end
 
-  context ".all" do
-    it "lists one Company with id, name, phone, is_open, id and acai_price" do
+  context "all" do
+    it "one Company with its attributes" do
       Company.create(name: "Casa do Açaí", phone: "11-11111111", acai_price: "12.00")
 
       companies = Company.all
@@ -80,7 +94,7 @@ RSpec.describe Company do
       expect(companies.first&.id).to be_truthy
     end
 
-    it "lists three Companies" do
+    it "three Companies" do
       Company.create(name: "Casa do Açaí")
       Company.create(name: "Toca do Açaí")
       Company.create(name: "Açaí da Esquina")
@@ -94,8 +108,8 @@ RSpec.describe Company do
     end
   end
 
-  context ".sort_by_price" do
-    it "returns companies ordered by acai_price" do
+  context "sort" do
+    it "by acai_price" do
       Company.create(name: "Casa do Açaí", phone: "11-11111111", acai_price: "11.00")
       Company.create(name: "Toca do Açaí", phone: "11-11111111", acai_price: "10.00")
       Company.create(name: "Açaí do Açaí", phone: "11-11111111", acai_price: "12.00")
@@ -111,7 +125,7 @@ RSpec.describe Company do
   end
 
   context "#inform_open" do
-    it "sets the company is_open to true" do
+    it "true" do
       company = Company.create(name: "Toca do Açaí", phone: "11-11111111")
 
       company.inform_open
@@ -120,7 +134,7 @@ RSpec.describe Company do
       expect(Company.all.first&.is_open).to eq(true)
     end
 
-    it "sets the company is_open to true when there is more than one company" do
+    it "true for companies" do
       Company.create(name: "Casa do Açaí", phone: "11-11111111")
       Company.create(name: "Toca do Açaí", phone: "11-11111112")
       company = Company.create(name: "Caverna do Açaí", phone: "11-11111113")
@@ -133,7 +147,7 @@ RSpec.describe Company do
   end
 
   context "#inform_closed" do
-    it "sets the company is_open to false" do
+    it "false" do
       company = Company.create(name: "Toca do Açaí", phone: "11-11111111")
       company.inform_open
 
@@ -143,7 +157,7 @@ RSpec.describe Company do
       expect(Company.all.first&.is_open).to eq(false)
     end
 
-    it "sets the company is_open to false when there is more than one company" do
+    it "false for companies" do
       Company.create(name: "Casa do Açaí", phone: "11-11111111")
       Company.create(name: "Toca do Açaí", phone: "11-11111112")
       company = Company.create(name: "Caverna do Açaí", phone: "11-11111113")
@@ -165,7 +179,7 @@ RSpec.describe Company do
       end
     end
 
-    it "returns the address from company" do
+    it "company" do
       stub_const("CompanyAddress::DATA_PATH", addresses_path)
       company = Company.create(name: "Casa do Açaí", phone: "11-11111111")
       CompanyAddress.create(company_id: company.id.to_s, zip: "11111-111", street: "Rua do Açaí, 25", city: "São Paulo",
@@ -189,7 +203,7 @@ RSpec.describe Company do
       end
     end
 
-    it "returns all company ratings" do
+    it "all companies" do
       stub_const("Rating::DATA_PATH", ratings_path)
       company = Company.create(name: "Casa do Açaí", phone: "11-11111111")
       Rating.create(company_id: company.id.to_s, customer_id: "21", rate: "8", content: "Muito bom!")
