@@ -9,17 +9,18 @@ class Company
   attr_accessor :delivery
   alias is_open? is_open
 
-  def initialize(id:, name:, phone: "", is_open: false, acai_price: "", delivery: nil)
+  def initialize(id:, name:, phone: "", is_open: false, acai_price: "")
     @id = id.to_i
     @name = name
     @phone = phone
     @is_open = ["true", true].include?(is_open)
     @acai_price = acai_price
-    @delivery = false if delivery.nil?
+    @delivery = false
   end
 
   def delivery?
-    return "Este estabelecimento não faz entrega." if self.delivery == false
+    return "Este estabelecimento não faz entrega." if delivery == false
+
     "Este estabelecimento faz entrega."
   end
 
@@ -28,7 +29,7 @@ class Company
 
     CSV.read(DATA_PATH, headers: true).each do |row|
       companies << Company.new(id: row["id"], name: row["name"], phone: row["phone"], is_open: row["is_open"],
-                               acai_price: row["acai_price"], delivery: nil)
+                               acai_price: row["acai_price"])
     end
     companies
   end
@@ -39,7 +40,8 @@ class Company
     new_company = Company.new(id: id, name: name, phone: phone, acai_price: acai_price)
 
     CSV.open(DATA_PATH, "ab") do |csv|
-      csv << [new_company.id, new_company.name, new_company.phone, new_company.is_open, new_company.acai_price, new_company.delivery]
+      csv << [new_company.id, new_company.name, new_company.phone, new_company.is_open, new_company.acai_price,
+              new_company.delivery]
     end
 
     new_company
