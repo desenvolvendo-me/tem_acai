@@ -40,12 +40,6 @@ RSpec.describe Company do
       expect(company.delivery?).to eq("Este estabelecimento faz entrega.")
     end
 
-    it "if delivery true phone can't be nil" do 
-      company = Company.create(name: "Casa do Açaí")
-
-      expect(company).to eq("O telefone é obrigatório")
-    end
-
     it "is_open false by default" do
       company = Company.create(name: "Casa do Açaí")
 
