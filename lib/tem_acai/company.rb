@@ -6,7 +6,7 @@ class Company
   DATA_PATH = "data/companies.csv"
 
   attr_reader :id, :name, :phone, :is_open, :acai_price
-  attr_accessor :delivery, :reservation
+  attr_accessor :delivery, :reservation, :reservation_max_time
   alias is_open? is_open
 
   def initialize(id:, name:, phone: "", is_open: false, acai_price: "")
