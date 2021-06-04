@@ -39,6 +39,8 @@ class Company
 
     new_company = Company.new(id: id, name: name, phone: phone, acai_price: acai_price)
 
+    return "O nome do estabelecimento é obrigatório" if new_company.name.nil? || new_company.name == ""
+
     CSV.open(DATA_PATH, "ab") do |csv|
       csv << [new_company.id, new_company.name, new_company.phone, new_company.is_open, new_company.acai_price,
               new_company.delivery]

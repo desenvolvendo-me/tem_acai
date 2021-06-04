@@ -78,6 +78,14 @@ RSpec.describe Company do
 
       expect(companies.length).to eq(4)
     end
+
+    it "don't create without name" do
+      company = Company.create(name: nil)
+      company2 = Company.create(name: "")
+
+      expect(company).to eq("O nome do estabelecimento é obrigatório")
+      expect(company2).to eq("O nome do estabelecimento é obrigatório")
+    end
   end
 
   context "all" do
