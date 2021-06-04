@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "csv"
+
 class Company
   ID_RANDOM_SET = 2000
   DATA_PATH = "data/companies.csv"
