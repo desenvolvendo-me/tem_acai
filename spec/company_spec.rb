@@ -130,6 +130,20 @@ RSpec.describe Company do
       expect(companies.to_s).to include("Toca do Açaí")
       expect(companies.to_s).to include("Açaí da Esquina")
     end
+
+    it "opened ones" do
+      Company.create(name: "Casa do Açaí", address: "somewhere")
+      company_second = Company.create(name: "Toca do Açaí", address: "somewhere")
+      Company.create(name: "Açaí do Açaí", address: "somewhere")
+      company_fourth = Company.create(name: "Esquina do Açaí", address: "somewhere")
+
+      company_second.inform_open
+      company_fourth.inform_open
+
+      companies = Company.all_opened
+
+      expect(companies.size).to eq(2)
+    end
   end
 
   context "sort" do

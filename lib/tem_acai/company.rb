@@ -67,6 +67,14 @@ class Company
     Company.all.sort_by { |company| company.acai_price&.to_f }
   end
 
+  def self.all_opened
+    companies = []
+    Company.all.each do |company|
+      companies << company if company.is_open.eql? true
+    end
+    companies
+  end
+
   def self.sort_by_open
     companies = []
     Company.all.each do |company|
