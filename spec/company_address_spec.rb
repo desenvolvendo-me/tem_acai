@@ -39,27 +39,27 @@ RSpec.describe CompanyAddress do
 
   context "not create" do
     it "zip empty" do
-      company_adrees = CompanyAddress.create(company_id: "123", zip: "", street: "Rua do Açaí, 25", city: "São Paulo",
+      company_address = CompanyAddress.create(company_id: "123", zip: "", street: "Rua do Açaí, 25", city: "São Paulo",
                                              state: "SP")
-      expect(company_adrees).to eq("O cep é obrigatório")
+      expect(company_address).to eq("O cep é obrigatório")
     end
 
     it "state empty " do
-      company_adrees = CompanyAddress.create(company_id: "123", zip: "1111-1111", street: "Rua do Açaí, 25",
+      company_address = CompanyAddress.create(company_id: "123", zip: "1111-1111", street: "Rua do Açaí, 25",
                                              city: "São Paulo", state: "")
-      expect(company_adrees).to eq("O estado é obrigatório")
+      expect(company_address).to eq("O estado é obrigatório")
     end
 
     it "city empty" do
-      company_adrees = CompanyAddress.create(company_id: "123", zip: "1111-1111", street: "Rua do Açaí, 25", city: "",
+      company_address = CompanyAddress.create(company_id: "123", zip: "1111-1111", street: "Rua do Açaí, 25", city: "",
                                              state: "SP")
-      expect(company_adrees).to eq("A cidade é obrigatória")
+      expect(company_address).to eq("A cidade é obrigatória")
     end
 
     it "street empty" do
-      company_adrees = CompanyAddress.create(company_id: "123", zip: "1111-1111", street: "", city: "São Paulo",
+      company_address = CompanyAddress.create(company_id: "123", zip: "1111-1111", street: "", city: "São Paulo",
                                              state: "SP")
-      expect(company_adrees).to eq("A rua é obrigatória")
+      expect(company_address).to eq("A rua é obrigatória")
     end
   end
 
