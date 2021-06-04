@@ -10,9 +10,8 @@ RSpec.describe CompanyAddress do
 
   after(:all) { restart_csv(csv_path) }
 
-  context ".create" do
-    it "creates a company address with id, company_id, zip, street, city, state" do
-      Company.create(name: "Casa do Açaí", phone: "11-11111111", address: "Somehwere")
+  context "create" do
+    it "address attributes" do
       company_address = CompanyAddress.create(company_id: "123", zip: "11111-111", street: "Rua do Açaí, 25",
                                               city: "São Paulo", state: "SP")
 
@@ -24,8 +23,8 @@ RSpec.describe CompanyAddress do
     end
   end
 
-  context ".from_company" do
-    it "returns the address from a company id" do
+  context "find" do
+    it "by company id" do
       CompanyAddress.create(company_id: "123", zip: "11111-111", street: "Rua do Açaí, 25", city: "São Paulo",
                             state: "SP")
 
@@ -38,26 +37,26 @@ RSpec.describe CompanyAddress do
     end
   end
 
-  context "when attributes not valid" do
-    it "should return message if zip is empty" do
+  context "not create" do
+    it "zip empty" do
       company_adrees = CompanyAddress.create(company_id: "123", zip: "", street: "Rua do Açaí, 25", city: "São Paulo",
                                              state: "SP")
       expect(company_adrees).to eq("O cep é obrigatório")
     end
 
-    it "should return message if state is empty " do
+    it "state empty " do
       company_adrees = CompanyAddress.create(company_id: "123", zip: "1111-1111", street: "Rua do Açaí, 25",
                                              city: "São Paulo", state: "")
       expect(company_adrees).to eq("O estado é obrigatório")
     end
 
-    it "should return message if city is empty" do
+    it "city empty" do
       company_adrees = CompanyAddress.create(company_id: "123", zip: "1111-1111", street: "Rua do Açaí, 25", city: "",
                                              state: "SP")
       expect(company_adrees).to eq("A cidade é obrigatória")
     end
 
-    it "should return message if street is empty" do
+    it "street empty" do
       company_adrees = CompanyAddress.create(company_id: "123", zip: "1111-1111", street: "", city: "São Paulo",
                                              state: "SP")
       expect(company_adrees).to eq("A rua é obrigatória")
