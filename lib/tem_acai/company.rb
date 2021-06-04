@@ -53,7 +53,7 @@ class Company
 
     new_company = Company.new(id: id, name: name, phone: phone, acai_price: acai_price)
 
-    return "O telefone é obrigatório" unless new_company.delivery
+    return "O telefone é obrigatório" unless new_company.delivery?
     return "O nome do estabelecimento é obrigatório" if new_company.name.nil? || new_company.name.empty?
 
     CSV.open(DATA_PATH, "ab") do |csv|
