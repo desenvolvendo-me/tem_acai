@@ -19,10 +19,14 @@ class Purchase
 
     purchase = Purchase.new(id: id, product_id: product_id, amount: amount, price: price)
 
+    save_data_to_csv(purchase)
+
+    purchase
+  end
+
+  def self.save_data_to_csv(purchase)
     CSV.open(DATA_PATH, "ab") do |csv|
       csv << [purchase.id, purchase.product_id, purchase.amount, purchase.price]
     end
-
-    purchase
   end
 end
