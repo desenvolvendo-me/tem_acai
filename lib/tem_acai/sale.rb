@@ -20,13 +20,17 @@ class Sale
     id = rand(ID_RANDOM_SET)
     sale = Sale.new(id, product_id, customer_id, company_id, amount)
 
-    csv_file("ab") do |csv|
-      csv << [sale.id, sale.product_id, sale.customer_id, sale.company_id, sale.amount]
-    end
+    save_data_sale_to_csv(sale)
     sale
   end
 
   def self.csv_file(mode = "r")
     CSV.open(DATA_PATH, mode)
+  end
+
+  def self.save_data_sale_to_csv(sale)
+    csv_file("ab") do |csv|
+      csv << [sale.id, sale.product_id, sale.customer_id, sale.company_id, sale.amount]
+    end
   end
 end

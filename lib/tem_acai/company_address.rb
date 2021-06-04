@@ -37,15 +37,19 @@ class CompanyAddress
     return "A cidade é obrigatória" if new_address.city.nil? || new_address.city.empty?
     return "A rua é obrigatória" if new_address.street.nil? || new_address.street.empty?
 
-    CSV.open(DATA_PATH, "ab") do |csv|
-      csv << [new_address.id, new_address.company_id, new_address.zip, new_address.street, new_address.city,
-              new_address.state]
-    end
+    save_data_to_csv(new_address)
 
     new_address
   end
 
   def self.from_company(company_id)
     CompanyAddress.all.find { |address| address.company_id == company_id }
+  end
+
+  def self.save_data_to_csv(new_address)
+    CSV.open(DATA_PATH, "ab") do |csv|
+      csv << [new_address.id, new_address.company_id, new_address.zip, new_address.street, new_address.city,
+              new_address.state]
+    end
   end
 end

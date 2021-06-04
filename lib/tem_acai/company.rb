@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "csv"
+
 class Company
   ID_RANDOM_SET = 2000
   DATA_PATH = "data/companies.csv"
@@ -106,15 +107,23 @@ class Company
   def update_csv
     companies = Company.all
 
+    save_data_to_csv(companies)
+  end
+
+  def save_data_to_csv(companies)
     CSV.open(DATA_PATH, "wb") do |csv|
       csv << %w[id name phone is_open acai_price]
-      companies.each do |company|
-        csv << if company.id.to_i == id
-                 [id, name, phone, is_open, acai_price]
-               else
-                 [company.id, company.name, company.phone, company.is_open, company.acai_price]
-               end
-      end
+      update_csv_for_each_company(companies, csv)
+    end
+  end
+
+  def update_csv_for_each_company(companies, csv)
+    companies.each do |company|
+      csv << if company.id.to_i == id
+               [id, name, phone, is_open, acai_price]
+             else
+               [company.id, company.name, company.phone, company.is_open, company.acai_price]
+             end
     end
   end
 end

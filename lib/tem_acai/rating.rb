@@ -18,10 +18,7 @@ class Rating
   def self.all
     ratings = []
 
-    CSV.open(DATA_PATH, headers: true).each do |row|
-      ratings << Rating.new(id: row["id"], company_id: row["company_id"], customer_id: row["customer_id"],
-                            rate: row["rate"], content: row["content"])
-    end
+    save_data_rating_to_csv(ratings)
 
     ratings
   end
@@ -40,5 +37,12 @@ class Rating
 
   def self.from_company(company_id)
     Rating.all.select { |rating| rating.company_id == company_id }
+  end
+
+  def self.save_data_rating_to_csv(ratings)
+    CSV.open(DATA_PATH, headers: true).each do |row|
+      ratings << Rating.new(id: row["id"], company_id: row["company_id"], customer_id: row["customer_id"],
+                            rate: row["rate"], content: row["content"])
+    end
   end
 end
