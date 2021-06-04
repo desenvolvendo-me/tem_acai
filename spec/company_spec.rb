@@ -42,7 +42,7 @@ RSpec.describe Company do
 
     context "reservation açaí" do
       it "should return message when the company makes reservation" do
-        company = Company.create(name: "Casa do Açaí")
+        company = Company.create(name: "Casa do Açaí", address: "somewhere")
 
         company.reservation = (true)
 
@@ -50,7 +50,7 @@ RSpec.describe Company do
       end
 
       it "should return message when the comapany does not make a reservation" do
-        company = Company.create(name: "Casa do Açaí")
+        company = Company.create(name: "Casa do Açaí", address: "somewhere")
 
         expect(company.reservation?).to eq("Este estabelimento não faz reserva.")
       end
