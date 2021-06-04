@@ -104,6 +104,16 @@ RSpec.describe Company do
     end
   end
 
+  context "reservation" do
+    it "max time" do
+      company = Company.create(name: "Casa do Açaí", phone: "11-11111111", acai_price: "12.00", address: "somewhere")
+
+      company.reservation_max_time = ("10:00")
+
+      expect(company.reservation_max_time).to eq("10:00")
+    end
+  end
+
   context "all" do
     it "one Company with its attributes" do
       Company.create(name: "Casa do Açaí", phone: "11-11111111", acai_price: "12.00", address: "somewhere")
