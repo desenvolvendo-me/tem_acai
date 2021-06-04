@@ -12,6 +12,7 @@ RSpec.describe CompanyAddress do
 
   context ".create" do
     it "creates a company address with id, company_id, zip, street, city, state" do
+      Company.create(name: "Casa do Açaí", phone: "11-11111111", address: "Somehwere")
       company_address = CompanyAddress.create(company_id: "123", zip: "11111-111", street: "Rua do Açaí, 25",
                                               city: "São Paulo", state: "SP")
 
