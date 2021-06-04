@@ -40,6 +40,22 @@ RSpec.describe Company do
       expect(company.delivery?).to eq("Este estabelecimento faz entrega.")
     end
 
+    context "reservation açaí" do
+      it "should return message when the company makes reservation" do
+        company = Company.create(name: "Casa do Açaí")
+
+        company.reservation = (true)
+
+        expect(company.reservation?).to eq("Este estabelecimento faz reserva.")
+      end
+
+      it "should return message when the comapany does not make a reservation" do
+        company = Company.create(name: "Casa do Açaí")
+
+        expect(company.reservation?).to eq("Este estabelimento não faz reserva.")
+      end
+    end
+
     it "is_open false by default" do
       company = Company.create(name: "Casa do Açaí")
 
