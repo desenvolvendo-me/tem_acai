@@ -153,10 +153,10 @@ RSpec.describe Company do
       Company.create(name: "Casa do Açaí", address: "somewhere")
       company_second = Company.create(name: "Toca do Açaí", address: "somewhere")
       Company.create(name: "Açaí do Açaí", address: "somewhere")
-      company_fourthy = Company.create(name: "Esquina do Açaí", address: "somewhere")
+      company_fourth = Company.create(name: "Esquina do Açaí", address: "somewhere")
 
       company_second.inform_open
-      company_fourthy.inform_open
+      company_fourth.inform_open
 
       companies = Company.sort_by_open
 
@@ -262,7 +262,7 @@ RSpec.describe Company do
   end
 
   context "not create" do
-    it "endereço obrigatório" do
+    it "mandatory address" do
       company =  Company.create(name: "Casa do Açaí", phone: "11-11111111")
 
       expect(company).to eq("O endereço deve ser obrigatório")
