@@ -108,7 +108,7 @@ RSpec.describe Company do
     it "max time" do
       company = Company.create(name: "Casa do Açaí", phone: "11-11111111", acai_price: "12.00", address: "somewhere")
 
-      company.reservation_max_time=("10:00")
+      company.reservation_max_time = ("10:00")
 
       expect(company.reservation_max_time).to eq("10:00")
     end
