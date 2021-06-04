@@ -6,7 +6,7 @@ class Company
   DATA_PATH = "data/companies.csv"
 
   attr_reader :id, :name, :phone, :is_open, :acai_price
-  attr_accessor :delivery
+  attr_accessor :delivery, :reservation
   alias is_open? is_open
 
   def initialize(id:, name:, phone: "", is_open: false, acai_price: "")
@@ -16,12 +16,23 @@ class Company
     @is_open = ["true", true].include?(is_open)
     @acai_price = acai_price
     @delivery = false
+    @reservation = false
   end
 
   def delivery?
-    return "Este estabelecimento não faz entrega." if delivery == false
+    return "Este estabelecimento não faz entrega." if delivery.eql? false
 
     "Este estabelecimento faz entrega."
+  end
+
+  def reservation?
+    return "Este estabelimento não faz reserva." if reservation.eql? false
+
+    "Este estabelecimento faz reserva."
+  end
+
+  def addresses
+    CompanyAddress.from_company(id.to_s)
   end
 
   def self.all
@@ -34,12 +45,16 @@ class Company
     companies
   end
 
-  def self.create(name:, phone: "", acai_price: "")
+  def self.create(name:, phone: "", acai_price: "", address: nil)
+    @address = address
+    return "O endereço deve ser obrigatório" if @address.nil?
+
     id = rand(ID_RANDOM_SET)
 
     new_company = Company.new(id: id, name: name, phone: phone, acai_price: acai_price)
 
     return "O telefone é obrigatório" unless new_company.delivery
+    return "O nome do estabelecimento é obrigatório" if new_company.name.nil? || new_company.name.empty?
 
     CSV.open(DATA_PATH, "ab") do |csv|
       csv << [new_company.id, new_company.name, new_company.phone, new_company.is_open, new_company.acai_price,
@@ -53,6 +68,14 @@ class Company
     Company.all.sort_by { |company| company.acai_price&.to_f }
   end
 
+  def self.sort_by_open
+    companies = []
+    Company.all.each do |company|
+      companies << company if company.is_open.eql? true
+    end
+    companies.sort_by(&:name)
+  end
+
   def inform_open
     self.is_open = true
 
@@ -63,10 +86,6 @@ class Company
     self.is_open = false
 
     update_csv
-  end
-
-  def address
-    CompanyAddress.from_company(id.to_s)
   end
 
   def ratings
