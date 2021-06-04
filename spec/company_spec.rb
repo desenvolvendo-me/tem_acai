@@ -263,7 +263,7 @@ RSpec.describe Company do
 
   context "not create" do
     it "mandatory address" do
-      company =  Company.create(name: "Casa do Açaí", phone: "11-11111111")
+      company = Company.create(name: "Casa do Açaí", phone: "11-11111111")
 
       expect(company).to eq("O endereço deve ser obrigatório")
     end
