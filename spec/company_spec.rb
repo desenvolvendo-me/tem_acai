@@ -40,6 +40,12 @@ RSpec.describe Company do
       expect(company.delivery?).to eq("Este estabelecimento faz entrega.")
     end
 
+    it "phone is required if delivery be true" do
+      company = Company.create(name: "Casa do Açaí", address: "somewhere", delivery: true)
+
+      expect(company).to eq("O telefone é obrigatório")
+    end
+
     context "reservation açaí" do
       it "should return message when the company makes reservation" do
         company = Company.create(name: "Casa do Açaí", address: "somewhere")
