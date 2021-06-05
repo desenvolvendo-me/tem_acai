@@ -45,15 +45,19 @@ class Company
     companies
   end
 
-  def self.create(name:, phone: "", acai_price: "", address: nil)
+  def self.create(name:, phone: "", acai_price: "", address: nil, delivery: false)
+    @delivery = delivery
     @address = address
     return "O endereço deve ser obrigatório" if @address.nil?
 
     id = rand(ID_RANDOM_SET)
 
     new_company = Company.new(id: id, name: name, phone: phone, acai_price: acai_price)
+    new_company.delivery = @delivery
 
-    return "O telefone é obrigatório" unless new_company.delivery?
+    if new_company.delivery.eql?(true) && (new_company.phone.nil? || new_company.phone.empty?)
+      return "O telefone é obrigatório"
+    end
     return "O nome do estabelecimento é obrigatório" if new_company.name.nil? || new_company.name.empty?
 
     CSV.open(DATA_PATH, "ab") do |csv|
