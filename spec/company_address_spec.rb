@@ -10,8 +10,8 @@ RSpec.describe CompanyAddress do
 
   after(:all) { restart_csv(csv_path) }
 
-  context ".create" do
-    it "creates a company address with id, company_id, zip, street, city, state" do
+  context "create" do
+    it "address attributes" do
       company_address = CompanyAddress.create(company_id: "123", zip: "11111-111", street: "Rua do Açaí, 25",
                                               city: "São Paulo", state: "SP")
 
@@ -23,8 +23,8 @@ RSpec.describe CompanyAddress do
     end
   end
 
-  context ".from_company" do
-    it "returns the address from a company id" do
+  context "find" do
+    it "by company id" do
       CompanyAddress.create(company_id: "123", zip: "11111-111", street: "Rua do Açaí, 25", city: "São Paulo",
                             state: "SP")
 
@@ -34,6 +34,32 @@ RSpec.describe CompanyAddress do
       expect(address.zip).to eq("11111-111")
       expect(address.city).to eq("São Paulo")
       expect(address.state).to eq("SP")
+    end
+  end
+
+  context "not create" do
+    it "zip empty" do
+      company_address = CompanyAddress.create(company_id: "123", zip: "", street: "Rua do Açaí, 25", city: "São Paulo",
+                                              state: "SP")
+      expect(company_address).to eq("O cep é obrigatório")
+    end
+
+    it "state empty " do
+      company_address = CompanyAddress.create(company_id: "123", zip: "1111-1111", street: "Rua do Açaí, 25",
+                                              city: "São Paulo", state: "")
+      expect(company_address).to eq("O estado é obrigatório")
+    end
+
+    it "city empty" do
+      company_address = CompanyAddress.create(company_id: "123", zip: "1111-1111", street: "Rua do Açaí, 25", city: "",
+                                              state: "SP")
+      expect(company_address).to eq("A cidade é obrigatória")
+    end
+
+    it "street empty" do
+      company_address = CompanyAddress.create(company_id: "123", zip: "1111-1111", street: "", city: "São Paulo",
+                                              state: "SP")
+      expect(company_address).to eq("A rua é obrigatória")
     end
   end
 
