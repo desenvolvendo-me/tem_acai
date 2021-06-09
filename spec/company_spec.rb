@@ -251,8 +251,8 @@ RSpec.describe Company do
   context "#change_flag to close" do
     it "false" do
       company = Company.create(name: "Toca do Açaí", phone: "11-11111111", address: "somewhere")
-      company.change_flag
 
+      company.change_flag
       company.change_flag
 
       expect(company.is_open).to eq(false)
@@ -263,8 +263,8 @@ RSpec.describe Company do
       Company.create(name: "Casa do Açaí", phone: "11-11111111", address: "somewhere")
       Company.create(name: "Toca do Açaí", phone: "11-11111112", address: "somewhere")
       company = Company.create(name: "Caverna do Açaí", phone: "11-11111113", address: "somewhere")
-      company.change_flag
 
+      company.change_flag
       company.change_flag
 
       expect(company.is_open).to eq(false)
