@@ -183,8 +183,8 @@ RSpec.describe Company do
       Company.create(name: "Açaí do Açaí", address: "somewhere")
       company_fourth = Company.create(name: "Esquina do Açaí", address: "somewhere")
 
-      company_second.inform_open
-      company_fourth.inform_open
+      company_second.change_flag
+      company_fourth.change_flag
 
       companies = Company.all_opened
 
@@ -215,8 +215,8 @@ RSpec.describe Company do
       Company.create(name: "Açaí do Açaí", address: "somewhere")
       company_fourth = Company.create(name: "Esquina do Açaí", address: "somewhere")
 
-      company_second.inform_open
-      company_fourth.inform_open
+      company_second.change_flag
+      company_fourth.change_flag
 
       companies = Company.sort_by_open
 
@@ -226,11 +226,11 @@ RSpec.describe Company do
     end
   end
 
-  context "#inform_open" do
+  context "#change_flag" do
     it "true" do
       company = Company.create(name: "Toca do Açaí", phone: "11-11111111", address: "somewhere")
 
-      company.inform_open
+      company.change_flag
 
       expect(company.is_open).to eq(true)
       expect(Company.all.first&.is_open).to eq(true)
@@ -241,19 +241,19 @@ RSpec.describe Company do
       Company.create(name: "Toca do Açaí", phone: "11-11111112", address: "somewhere")
       company = Company.create(name: "Caverna do Açaí", phone: "11-11111113", address: "somewhere")
 
-      company.inform_open
+      company.change_flag
 
       expect(company.is_open).to eq(true)
       expect(Company.all.last&.is_open).to eq(true)
     end
   end
 
-  context "#inform_closed" do
+  context "#change_flag to close" do
     it "false" do
       company = Company.create(name: "Toca do Açaí", phone: "11-11111111", address: "somewhere")
-      company.inform_open
+      company.change_flag
 
-      company.inform_closed
+      company.change_flag
 
       expect(company.is_open).to eq(false)
       expect(Company.all.first&.is_open).to eq(false)
@@ -263,9 +263,9 @@ RSpec.describe Company do
       Company.create(name: "Casa do Açaí", phone: "11-11111111", address: "somewhere")
       Company.create(name: "Toca do Açaí", phone: "11-11111112", address: "somewhere")
       company = Company.create(name: "Caverna do Açaí", phone: "11-11111113", address: "somewhere")
-      company.inform_open
+      company.change_flag
 
-      company.inform_closed
+      company.change_flag
 
       expect(company.is_open).to eq(false)
       expect(Company.all.last&.is_open).to eq(false)
