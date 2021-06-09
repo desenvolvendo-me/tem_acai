@@ -8,4 +8,13 @@ RSpec.describe Reservation do
       expect(reservation.quantity).to  eq(quantity)
     end
   end
+
+  context 'not create' do
+    it 'be nil' do
+      quantity = 0
+      reservation = Reservation.new(quantity)
+
+      expect(reservation.quantity).to  be_nil
+    end
+  end
 end
