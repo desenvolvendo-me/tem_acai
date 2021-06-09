@@ -89,13 +89,9 @@ class Company
     companies.sort_by(&:name)
   end
 
-  def inform_open
-    self.is_open = true
-    update_csv
-  end
+  def change_flag
+    self.is_open = is_open == false
 
-  def inform_closed
-    self.is_open = false
     update_csv
   end
 
