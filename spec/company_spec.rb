@@ -76,6 +76,12 @@ RSpec.describe Company do
       expect(company.is_open?).to eq false
     end
 
+    it "is_reservation false by default" do
+      company = Company.create(name: "Casa do Açaí", address: "somewhere")
+
+      expect(company.do_reservation?).to eq(false)
+    end
+
     it "acai_price" do
       company = Company.create(name: "Casa do Açaí", acai_price: "12.50", address: "somewhere")
 
@@ -125,6 +131,22 @@ RSpec.describe Company do
       company.reservation_max_time = ("10:00")
 
       expect(company.reservation_max_time).to eq("10:00")
+    end
+
+    it "inform reservation" do
+      company = Company.create(name: "Casa do Açaí", phone: "11-11111111", acai_price: "12.00", address: "somewhere")
+
+      company.inform_reservation
+
+      expect(company.do_reservation?).to eq(true)
+    end
+
+    it "inform reservation if true become false" do
+      company = Company.create(name: "Casa do Açaí", phone: "11-11111111", acai_price: "12.00", address: "somewhere")
+
+      2.times { company.inform_reservation }
+
+      expect(company.do_reservation?).to eq(false)
     end
   end
 
