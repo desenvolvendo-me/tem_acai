@@ -51,7 +51,7 @@ class Company
   def self.create(name:, phone: "", acai_price: "", address: nil, delivery: false)
     @delivery = delivery
     @address = address
-    return "O endereço deve ser obrigatório" if @address.nil?
+    return "O endereço deve ser obrigatório" unless @address
 
     id = rand(ID_RANDOM_SET)
 
