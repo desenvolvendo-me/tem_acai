@@ -9,8 +9,9 @@ class Reservation
   end
 
   def valid?
-    return false if self.quantity.zero?
-    return false if self.quantity.negative?
+    return false if quantity.zero?
+    return false if quantity.negative?
+
     true
   end
 end
