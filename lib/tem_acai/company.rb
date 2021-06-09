@@ -9,7 +9,7 @@ class Company
   DATA_PATH = "data/companies.csv"
 
   attr_reader :id, :name, :phone, :is_open, :acai_price, :do_reservation
-  attr_accessor :delivery, :reservation, :reservation_max_time
+  attr_accessor :delivery, :reservation_max_time
   alias is_open? is_open
   alias do_reservation? do_reservation
 
@@ -21,7 +21,6 @@ class Company
     @do_reservation = ["true", true].include?(do_reservation)
     @acai_price = acai_price
     @delivery = false
-    @reservation = false
   end
 
   def delivery?
@@ -31,7 +30,7 @@ class Company
   end
 
   def reservation?
-    return "Este estabelimento não faz reserva." if reservation.eql? false
+    return "Este estabelimento não faz reserva." if do_reservation.eql? false
 
     "Este estabelecimento faz reserva."
   end
@@ -67,7 +66,6 @@ class Company
       csv << [new_company.id, name, new_company.phone, new_company.is_open, new_company.acai_price,
               @delivery, new_company.do_reservation]
     end
-
     new_company
   end
 
@@ -92,8 +90,12 @@ class Company
   end
 
   def inform_open
-    self.is_open = is_open.eql?(false) ? true: false
+    self.is_open = true
+    update_csv
+  end
 
+  def inform_closed
+    self.is_open = false
     update_csv
   end
 
@@ -105,7 +107,6 @@ class Company
 
   def inform_reservation
     self.do_reservation = do_reservation.eql?(false) ? true : false
-
     update_csv
   end
 
@@ -115,12 +116,10 @@ class Company
 
   private
 
-  attr_writer :is_open
-  attr_writer :do_reservation
+  attr_writer :is_open, :do_reservation
 
   def update_csv
     companies = Company.all
-
     save_data_to_csv(companies)
   end
 
