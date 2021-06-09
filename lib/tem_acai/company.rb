@@ -2,6 +2,8 @@
 
 require "csv"
 
+# Company holds status asked by the customer
+# E.g. Is it opened? Does it has a delivery mode?
 class Company
   ID_RANDOM_SET = 2000
   DATA_PATH = "data/companies.csv"
