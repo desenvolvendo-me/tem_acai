@@ -4,9 +4,13 @@ class Reservation
   attr_accessor :quantity
 
   def initialize(quantity)
-    return nil if quantity.zero?
-    return nil if quantity.negative?
-
     @quantity = quantity
+    nil if quantity.negative?
+  end
+
+  def valid?
+    return false if self.quantity.zero?
+    return false if self.quantity.negative?
+    true
   end
 end
