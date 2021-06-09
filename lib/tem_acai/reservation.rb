@@ -5,7 +5,6 @@ class Reservation
 
   def initialize(quantity)
     @quantity = quantity
-    nil if quantity.negative?
   end
 
   def valid?
