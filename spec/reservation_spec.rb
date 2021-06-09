@@ -1,5 +1,4 @@
-require 'rspec'
-
+require "tem_acai/reservation"
 RSpec.describe Reservation do
   context 'create' do
     it 'be true' do
