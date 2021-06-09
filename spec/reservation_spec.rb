@@ -8,6 +8,7 @@ RSpec.describe Reservation do
       reservation = Reservation.new(quantity)
 
       expect(reservation.quantity).to eq(quantity)
+      expect(reservation.valid?).to eq(true)
     end
   end
 
@@ -16,14 +17,14 @@ RSpec.describe Reservation do
       quantity = 0
       reservation = Reservation.new(quantity)
 
-      expect(reservation.quantity).to be_nil
+      expect(reservation.valid?).to eq(false)
     end
 
     it "negative" do
       quantity = -1
       reservation = Reservation.new(quantity)
 
-      expect(reservation.quantity).to be_nil
+      expect(reservation.valid?).to eq(false)
     end
   end
 end
