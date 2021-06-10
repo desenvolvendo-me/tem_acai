@@ -79,12 +79,6 @@ class Company
     update_csv
   end
 
-  def inform_closed
-    self.is_open = false
-
-    update_csv
-  end
-
   def inform_reservation
     self.do_reservation = do_reservation.eql?(false) ? true : false
     update_csv
