@@ -44,7 +44,7 @@ class Company
 
     CSV.read(DATA_PATH, headers: true).each do |row|
       companies << Company.new(id: row["id"], name: row["name"], phone: row["phone"],
-                               acai_price: row["acai_price"], do_reservation: row["do_reservation"])
+                               acai_price: row["acai_price"])
     end
     companies
   end
