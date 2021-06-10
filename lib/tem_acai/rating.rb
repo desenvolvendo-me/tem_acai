@@ -19,7 +19,7 @@ class Rating
   end
 
   def valid?
-    return false if rate.nil?
+    return false unless rate
 
     true
   end
