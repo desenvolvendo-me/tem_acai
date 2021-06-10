@@ -2,6 +2,8 @@
 
 require "csv"
 
+# Company holds status asked by the customer
+# E.g. Is it opened? Does it has a delivery mode?
 class Company
   ID_RANDOM_SET = 2000
   DATA_PATH = "data/companies.csv"
@@ -49,21 +51,19 @@ class Company
   def self.create(name:, phone: "", acai_price: "", address: nil, delivery: false)
     @delivery = delivery
     @address = address
-    return "O endereço deve ser obrigatório" if @address.nil?
+    return "O endereço deve ser obrigatório" unless @address
 
     id = rand(ID_RANDOM_SET)
 
     new_company = Company.new(id: id, name: name, phone: phone, acai_price: acai_price)
     new_company.delivery = @delivery
 
-    if new_company.delivery.eql?(true) && (new_company.phone.nil? || new_company.phone.empty?)
-      return "O telefone é obrigatório"
-    end
-    return "O nome do estabelecimento é obrigatório" if new_company.name.nil? || new_company.name.empty?
+    return "O telefone é obrigatório" if @delivery && (phone.nil? || phone.empty?)
+    return "O nome do estabelecimento é obrigatório" if name.nil? || name.empty?
 
     CSV.open(DATA_PATH, "ab") do |csv|
-      csv << [new_company.id, new_company.name, new_company.phone, new_company.is_open, new_company.acai_price,
-              new_company.delivery]
+      csv << [new_company.id, name, new_company.phone, new_company.is_open, new_company.acai_price,
+              @delivery]
     end
 
     new_company
@@ -124,10 +124,11 @@ class Company
 
   def update_csv_for_each_company(companies, csv)
     companies.each do |company|
-      csv << if company.id.to_i == id
+      company_id = company.id
+      csv << if company_id.to_i == id
                [id, name, phone, is_open, acai_price]
              else
-               [company.id, company.name, company.phone, company.is_open, company.acai_price]
+               [company_id, company.name, company.phone, company.is_open, company.acai_price]
              end
     end
   end
