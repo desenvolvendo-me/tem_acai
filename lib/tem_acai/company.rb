@@ -8,16 +8,16 @@ class Company
   ID_RANDOM_SET = 2000
   DATA_PATH = "data/companies.csv"
 
-  attr_reader :id, :name, :phone, :is_open, :acai_price, :do_reservation
-  attr_accessor :delivery, :reservation_max_time
+  attr_reader :id, :is_open, :acai_price, :do_reservation
+  attr_accessor :delivery, :reservation_max_time, :name, :phone
   alias is_open? is_open
   alias do_reservation? do_reservation
 
-  def initialize(id:, name:, phone: "", is_open: false, acai_price: "", do_reservation: false)
+  def initialize(id:, name:, phone: "", acai_price: "", do_reservation: false, options: {})
     @id = id.to_i
     @name = name
     @phone = phone
-    @is_open = ["true", true].include?(is_open)
+    @is_open = false if options[:is_open].nil?
     @do_reservation = ["true", true].include?(do_reservation)
     @acai_price = acai_price
     @delivery = false
