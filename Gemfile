@@ -14,3 +14,5 @@ gem "rubocop", "~> 1.7"
 gem "rubycritic"
 
 gem "simplecov"
+
+gem 'heckle', '~> 1.4', '>= 1.4.3'
