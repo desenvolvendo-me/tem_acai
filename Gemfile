@@ -15,4 +15,4 @@ gem "rubycritic"
 
 gem "simplecov"
 
-gem 'heckle', '~> 1.4', '>= 1.4.3'
+gem "heckle", "~> 1.4", ">= 1.4.3"
