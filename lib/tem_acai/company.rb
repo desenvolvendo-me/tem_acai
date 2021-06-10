@@ -13,12 +13,12 @@ class Company
   alias is_open? is_open
   alias do_reservation? do_reservation
 
-  def initialize(id:, name:, phone: "", acai_price: "", do_reservation: false, options: {})
+  def initialize(id:, name:, phone: "", acai_price: "", options: {})
     @id = id.to_i
     @name = name
     @phone = phone
     @is_open = false if options[:is_open].nil?
-    @do_reservation = ["true", true].include?(do_reservation)
+    @do_reservation = false if options[:do_reservation].nil?
     @acai_price = acai_price
     @delivery = false
   end
