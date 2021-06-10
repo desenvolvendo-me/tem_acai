@@ -15,6 +15,12 @@ class Rating
     @content = content
   end
 
+  def valid?
+    return false if rate.nil?
+
+    true
+  end
+
   def self.all
     ratings = []
 
