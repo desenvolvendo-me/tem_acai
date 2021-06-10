@@ -1,5 +1,13 @@
 # frozen_string_literal: true
 
+def create_company
+  Company.create(name: "Casa do Açaí", address: "somewhere")
+end
+
+def rating_attributes
+  %w[id name phone is_open acai_price]
+end
+
 RSpec.describe Company do
   csv_path = "spec/support/companies-test.csv"
 
@@ -20,20 +28,20 @@ RSpec.describe Company do
     end
 
     it "without phone" do
-      company = Company.create(name: "Casa do Açaí", address: "somewhere")
+      company = create_company
 
       expect(company.name).to eq("Casa do Açaí")
       expect(company.phone).to eq("")
     end
 
     it "default not delivery" do
-      company = Company.create(name: "Casa do Açaí", address: "somewhere")
+      company = create_company
 
       expect(company.delivery?).to eq("Este estabelecimento não faz entrega.")
     end
 
     it "optional delivery" do
-      company = Company.create(name: "Casa do Açaí", address: "somewhere")
+      company = create_company
 
       company.delivery = (true)
 
@@ -48,7 +56,7 @@ RSpec.describe Company do
 
     context "reservation açaí" do
       it "should return message when the company makes reservation" do
-        company = Company.create(name: "Casa do Açaí", address: "somewhere")
+        company = create_company
 
         company.reservation = (true)
 
@@ -56,14 +64,14 @@ RSpec.describe Company do
       end
 
       it "should return message when the comapany does not make a reservation" do
-        company = Company.create(name: "Casa do Açaí", address: "somewhere")
+        company = create_company
 
         expect(company.reservation?).to eq("Este estabelimento não faz reserva.")
       end
     end
 
     it "is_open false by default" do
-      company = Company.create(name: "Casa do Açaí", address: "somewhere")
+      company = create_company
 
       expect(company.is_open?).to eq false
     end
@@ -75,7 +83,7 @@ RSpec.describe Company do
     end
 
     it "acai_price not required" do
-      company = Company.create(name: "Casa do Açaí", address: "somewhere")
+      company = create_company
 
       expect(company.acai_price).to eq("")
     end
@@ -301,7 +309,7 @@ RSpec.describe Company do
 
   def restart_csv(file_path)
     CSV.open(file_path, "wb") do |csv|
-      csv << %w[id name phone is_open acai_price]
+      csv << rating_attributes
     end
   end
 end
