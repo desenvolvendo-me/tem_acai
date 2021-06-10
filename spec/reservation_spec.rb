@@ -3,6 +3,18 @@
 require "tem_acai/reservation"
 RSpec.describe Reservation do
   context "create" do
+    it "reservation" do
+      reservation = Reservation.new(2)
+      reservation.company_id = 1
+      reservation.customer_id = 1
+      reservation.time_to_take = 2
+
+      expect(reservation.quantity).to eq 2
+      expect(reservation.company_id).to eq 1
+      expect(reservation.customer_id).to eq 1
+      expect(reservation.time_to_take).to eq 2
+    end
+
     it "be true" do
       quantity = 2
       reservation = Reservation.new(quantity)
