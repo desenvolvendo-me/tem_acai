@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 require "csv"
+
+# Rating is responsible for rate companies by the customer
+# As a customer, we would like to know which is the best company to buy the product.
 class Rating
   ID_RANDOM_SET = 2000
   DATA_PATH = "data/ratings.csv"
