@@ -131,7 +131,7 @@ class Company
       csv << if company.id.to_i == id
                [id, name, phone, is_open, acai_price, do_reservation]
              else
-               [company_id, company.name, company.phone, company.is_open, company.acai_price, company.do_reservation]
+               [company.id, company.name, company.phone, company.is_open, company.acai_price, company.do_reservation]
              end
     end
   end
