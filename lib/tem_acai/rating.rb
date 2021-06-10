@@ -34,6 +34,8 @@ class Rating
 
     new_rating = Rating.new(id: id, company_id: company_id, customer_id: customer_id, rate: rate, content: content)
 
+    return unless new_rating.valid?
+
     CSV.open(DATA_PATH, "ab") do |csv|
       csv << [new_rating.id, new_rating.company_id, new_rating.customer_id, new_rating.rate, new_rating.content]
     end
