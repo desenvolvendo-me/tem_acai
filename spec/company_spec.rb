@@ -19,7 +19,7 @@ RSpec.describe Company do
   after(:all) { restart_csv(csv_path) }
 
   context "Initialization" do
-    it 'be true' do
+    it "be true" do
       name = "Godzilla Lanches"
       phone = "999999999"
 
@@ -32,6 +32,7 @@ RSpec.describe Company do
       expect(company.name).to eq(name)
       expect(company.phone).to eq(phone)
       expect(company.is_open).to eq(false)
+      expect(company.do_reservation).to eq(false)
     end
   end
 
@@ -70,8 +71,6 @@ RSpec.describe Company do
 
       expect(company).to eq("O telefone é obrigatório")
     end
-
-
 
     it "is_open false by default" do
       company = create_company
@@ -252,7 +251,7 @@ RSpec.describe Company do
       company.change_flag
 
       expect(company.is_open).to eq(true)
-      #expect(Company.all.first&.is_open).to eq(true)
+      # expect(Company.all.first&.is_open).to eq(true)
     end
 
     it "true for companies" do
@@ -263,7 +262,7 @@ RSpec.describe Company do
       company.change_flag
 
       expect(company.is_open).to eq(true)
-      #expect(Company.all.last&.is_open).to eq(true)
+      # expect(Company.all.last&.is_open).to eq(true)
     end
   end
 
