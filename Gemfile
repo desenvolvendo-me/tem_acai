@@ -14,4 +14,3 @@ gem "rubocop", "~> 1.7"
 gem "rubycritic"
 
 gem "simplecov"
-
