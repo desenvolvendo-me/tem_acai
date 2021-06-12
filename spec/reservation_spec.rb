@@ -14,7 +14,6 @@ RSpec.describe Reservation do
 
   context "create" do
     it "reservation" do
-
       expect(@reservation.quantity).to eq 2
       expect(@reservation.company_id).to eq 1
       expect(@reservation.customer_id).to eq 1

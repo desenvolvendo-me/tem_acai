@@ -5,7 +5,7 @@ def create_company
 end
 
 def rating_attributes
-  %w[id name phone is_open acai_price]
+  %w[id name phone is_open acai_price do_rating]
 end
 
 RSpec.describe Company do
