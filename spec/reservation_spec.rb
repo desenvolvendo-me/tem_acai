@@ -5,6 +5,7 @@ RSpec.describe Reservation do
   csv_path = "spec/support/reservation-test.csv"
 
   before do
+    @reservation = Reservation.new(2, 1, 1, 2)
     stub_const("Reservation::DATA_PATH", csv_path)
     restart_csv(csv_path)
   end
@@ -13,39 +14,32 @@ RSpec.describe Reservation do
 
   context "create" do
     it "reservation" do
-      reservation = Reservation.new(2)
-      reservation.company_id = 1
-      reservation.customer_id = 1
-      reservation.time_to_take = 2
 
-      expect(reservation.quantity).to eq 2
-      expect(reservation.company_id).to eq 1
-      expect(reservation.customer_id).to eq 1
-      expect(reservation.time_to_take).to eq 2
+      expect(@reservation.quantity).to eq 2
+      expect(@reservation.company_id).to eq 1
+      expect(@reservation.customer_id).to eq 1
+      expect(@reservation.time_to_take).to eq 2
     end
 
     it "be true" do
-      quantity = 2
-      reservation = Reservation.new(quantity)
+      @reservation.quantity = 2
 
-      expect(reservation.quantity).to eq(quantity)
-      expect(reservation.valid?).to eq(true)
+      expect(@reservation.quantity).to eq(2)
+      expect(@reservation.valid?).to eq(true)
     end
   end
 
   context "not create" do
     it "zero" do
-      quantity = 0
-      reservation = Reservation.new(quantity)
+      @reservation.quantity = 0
 
-      expect(reservation.valid?).to eq(false)
+      expect(@reservation.valid?).to eq(false)
     end
 
     it "negative" do
-      quantity = -1
-      reservation = Reservation.new(quantity)
+      @reservation.quantity = -1
 
-      expect(reservation.valid?).to eq(false)
+      expect(@reservation.valid?).to eq(false)
     end
   end
 
