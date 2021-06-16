@@ -59,8 +59,8 @@ class Company
     new_company = Company.new(id: id, name: name, phone: phone, acai_price: acai_price)
     new_company.delivery = @delivery
 
-    return "O telefone é obrigatório" if @delivery && (phone.nil? || phone.empty?)
-    return "O nome do estabelecimento é obrigatório" if name.nil? || name.empty?
+    return "O telefone é obrigatório" if @delivery && phone.blank?
+    return "O nome do estabelecimento é obrigatório" if name.blank?
 
     CSV.open(DATA_PATH, "ab") do |csv|
       csv << [new_company.id, name, new_company.phone, new_company.is_open, new_company.acai_price,

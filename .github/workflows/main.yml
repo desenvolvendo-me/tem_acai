@@ -1,18 +1,43 @@
-name: Ruby
+name: Rails Unit Tests
 
-on: [push,pull_request]
+on: [push, pull_request]
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: postgres:11
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_PASSWORD: postgres
+
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Ruby
+    - name: Set up Ruby 2.6
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.6.6
-    - name: Run the default task
+    - name: Build and test with Rake
+      env:
+        PGHOST: localhost
+        PGUSER: postgres
+        PGPASSWORD: postgres
+        RAILS_ENV: test
       run: |
-        gem install bundler -v 2.2.14
-        bundle install
+        sudo apt-get -yqq install libpq-dev
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+        bundle exec rails db:create
+        bundle exec rails db:migrate
         bundle exec rake
+    - name: Rubocop Check
+      run: |
+        bundle exec rubocop
