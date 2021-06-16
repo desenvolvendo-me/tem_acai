@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "active_support/core_ext"
 require_relative "tem_acai/version"
 require_relative "tem_acai/company"
 require_relative "tem_acai/company_address"
