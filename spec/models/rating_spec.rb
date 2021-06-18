@@ -38,4 +38,9 @@ RSpec.describe Rating, type: :model do
       end
     end
   end
+
+  describe "associations" do
+    it { should belong_to(:company) }
+    it { should belong_to(:customer) }
+  end
 end
