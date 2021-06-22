@@ -3,5 +3,5 @@
 class Address < ApplicationRecord
   validates :zip, :street, :city, :state, presence: true
 
-  has_one :customer
+  has_one :customer, dependent: :destroy
 end
