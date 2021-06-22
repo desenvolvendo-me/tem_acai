@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_17_105741) do
+ActiveRecord::Schema.define(version: 2021_06_18_090746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,17 @@ ActiveRecord::Schema.define(version: 2021_06_17_105741) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "companies", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "phone"
+    t.boolean "is_open", default: false
+    t.decimal "acai_price", precision: 10, scale: 2
+    t.boolean "reservation", default: false
+    t.boolean "delivery", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "customers", force: :cascade do |t|
     t.string "name"
     t.string "phone"
@@ -33,5 +44,18 @@ ActiveRecord::Schema.define(version: 2021_06_17_105741) do
     t.index ["address_id"], name: "index_customers_on_address_id"
   end
 
+  create_table "ratings", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.bigint "company_id", null: false
+    t.integer "rate", null: false
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_ratings_on_company_id"
+    t.index ["customer_id"], name: "index_ratings_on_customer_id"
+  end
+
   add_foreign_key "customers", "addresses"
+  add_foreign_key "ratings", "companies"
+  add_foreign_key "ratings", "customers"
 end
