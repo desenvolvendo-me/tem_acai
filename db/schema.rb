@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_17_103709) do
+ActiveRecord::Schema.define(version: 2021_06_17_105741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,9 @@ ActiveRecord::Schema.define(version: 2021_06_17_103709) do
     t.string "phone"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "address_id"
+    t.index ["address_id"], name: "index_customers_on_address_id"
   end
 
+  add_foreign_key "customers", "addresses"
 end
