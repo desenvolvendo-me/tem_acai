@@ -49,5 +49,21 @@ describe "Companies", type: :request do
       expect(body[:reservation]).to eq(false)
       expect(body[:delivery]).to eq(false)
     end
+
+    it "fails to create a company" do
+      company_params = {
+        phone: "(11) 1111-1111",
+        is_open: false,
+        acai_price: 9.99,
+        reservation: false,
+        delivery: false
+      }
+
+      post "/api/v1/companies", params: company_params
+      body = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to have_http_status(422)
+      expect(body[:errors][:name]).to include("can't be blank")
+    end
   end
 end
