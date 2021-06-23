@@ -19,4 +19,35 @@ describe "Companies", type: :request do
       expect(body[2][:name]).to eq("Esquina Açaí")
     end
   end
+
+  context "POST /api/v1/companies" do
+    it "creates and returns a company" do
+      company_params = {
+        name: "Toca do Acai",
+        phone: "(11) 1111-1111",
+        is_open: false,
+        acai_price: 9.99,
+        reservation: false,
+        delivery: false
+      }
+
+      post "/api/v1/companies", params: company_params
+      body = JSON.parse(response.body, symbolize_names: true)
+      company = Company.first
+
+      expect(response).to have_http_status(201)
+      expect(company.name).to eq("Toca do Acai")
+      expect(company.phone).to eq("(11) 1111-1111")
+      expect(company.is_open).to eq(false)
+      expect(company.acai_price).to eq(9.99)
+      expect(company.reservation).to eq(false)
+      expect(company.delivery).to eq(false)
+      expect(body[:name]).to eq("Toca do Acai")
+      expect(body[:phone]).to eq("(11) 1111-1111")
+      expect(body[:is_open]).to eq(false)
+      expect(body[:acai_price]).to eq("9.99")
+      expect(body[:reservation]).to eq(false)
+      expect(body[:delivery]).to eq(false)
+    end
+  end
 end
