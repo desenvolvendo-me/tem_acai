@@ -7,6 +7,22 @@ module Api
         @companies = Company.all
         render json: @companies
       end
+
+      def create
+        company = Company.new(company_params)
+
+        if company.save
+          render json: company, status: :created
+        else
+          render json: { errors: company.errors }, status: :unprocessable_entity
+        end
+      end
+
+      private
+
+      def company_params
+        params.permit(:name, :phone, :is_open, :acai_price, :reservation, :delivery)
+      end
     end
   end
 end
