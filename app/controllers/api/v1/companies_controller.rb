@@ -22,7 +22,7 @@ module Api
 
       def company_params
         params.permit(:name, :phone, :is_open, :acai_price, :reservation, :delivery,
-                      address_attributes: [:zip, :street, :city, :state])
+                      address_attributes: %i[zip street city state])
       end
     end
   end
