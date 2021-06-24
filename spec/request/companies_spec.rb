@@ -84,4 +84,15 @@ describe "Companies", type: :request do
       expect(company.reload.is_open?).to eq(true)
     end
   end
+
+  context "PATCH /api/v1/companies/:id/inform_closed" do
+    it "sets company is_open to true" do
+      company = create(:company, is_open: true)
+
+      patch "/api/v1/companies/#{company.id}/inform_closed"
+
+      expect(response).to have_http_status(204)
+      expect(company.reload.is_open?).to eq(false)
+    end
+  end
 end
