@@ -28,7 +28,13 @@ describe "Companies", type: :request do
         is_open: false,
         acai_price: 9.99,
         reservation: false,
-        delivery: false
+        delivery: false,
+        address_attributes: {
+          zip: "111111-111",
+          street: "Rua dos Açaís, 140",
+          city: "Açaí Town",
+          state: "AC"
+        }
       }
 
       post "/api/v1/companies", params: company_params
@@ -42,6 +48,7 @@ describe "Companies", type: :request do
       expect(company.acai_price).to eq(9.99)
       expect(company.reservation).to eq(false)
       expect(company.delivery).to eq(false)
+      expect(company.address.street).to eq("Rua dos Açaís, 140")
       expect(body[:name]).to eq("Toca do Acai")
       expect(body[:phone]).to eq("(11) 1111-1111")
       expect(body[:is_open]).to eq(false)
