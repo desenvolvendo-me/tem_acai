@@ -1,24 +1,6 @@
-# README
+# Tem Açaí
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Setup
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Run `docker-compose up -d` to start Postgres database
+- Run `rails db:create db:migrate` to create the project database
