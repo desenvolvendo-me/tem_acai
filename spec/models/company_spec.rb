@@ -15,6 +15,10 @@ RSpec.describe Company, type: :model do
     end
   end
 
+  describe "associations" do
+    it { should belong_to(:address) }
+  end
+
   describe "default values" do
     let(:company) { Company.create(name: "New Company") }
 
