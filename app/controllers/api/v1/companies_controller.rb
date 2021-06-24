@@ -18,6 +18,14 @@ module Api
         end
       end
 
+      def inform_open
+        @company = Company.find(params[:company_id])
+
+        @company.update(is_open: true)
+
+        render json: {}, status: :no_content
+      end
+
       private
 
       def company_params

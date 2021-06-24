@@ -73,4 +73,15 @@ describe "Companies", type: :request do
       expect(body[:errors][:name]).to include("can't be blank")
     end
   end
+
+  context "PATCH /api/v1/companies/:id/inform_open" do
+    it "sets company is_open to true" do
+      company = create(:company, is_open: false)
+
+      patch "/api/v1/companies/#{company.id}/inform_open"
+
+      expect(response).to have_http_status(204)
+      expect(company.reload.is_open?).to eq(true)
+    end
+  end
 end
