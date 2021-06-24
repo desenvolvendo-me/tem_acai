@@ -7,4 +7,8 @@ RSpec.describe Customer, type: :model do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:phone) }
   end
+
+  describe "associations" do
+    it { should belong_to(:address).without_validating_presence }
+  end
 end
