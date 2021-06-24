@@ -21,7 +21,8 @@ module Api
       private
 
       def company_params
-        params.permit(:name, :phone, :is_open, :acai_price, :reservation, :delivery)
+        params.permit(:name, :phone, :is_open, :acai_price, :reservation, :delivery,
+                      address_attributes: [:zip, :street, :city, :state])
       end
     end
   end
