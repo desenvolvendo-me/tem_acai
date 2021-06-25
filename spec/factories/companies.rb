@@ -8,5 +8,6 @@ FactoryBot.define do
     acai_price { 9.99 }
     reservation { false }
     delivery { false }
+    address { build(:address) }
   end
 end

@@ -1,24 +1,19 @@
-# README
+# Tem Açaí
+> An API to show Açaí sellers that are current open
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Setup
 
-Things you may want to cover:
+- Clone this project with `git clone git@github.com:desenvolvendo-me/tem_acai.git`
+- Move to tem_acai directory `cd tem_acai`
+- Run `docker-compose up -d` to start Postgres database
+- Run `bundle install`
+- Run `rails db:create db:migrate` to create the project database
 
-* Ruby version
+## Running
 
-* System dependencies
+- Run this project with `rails s`
+- Access the api endpoints through `http://localhost:3000/api/v1/{endpoint}`
 
-* Configuration
+## Testing
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Run `rspec`
